@@ -1,0 +1,37 @@
+<div class="app-container">
+  <div class="navbar">
+    <div class="left-content">
+      <img src="assets/logo.png" alt="">
+      <span>Mueve <span class="TIC">TIC</span></span>
+    </div>
+  </div>
+
+<section >
+  <body >
+      <section>
+          <div class="center-side">
+              <div class="form-box">
+                  <form action="">
+                      <img src="/assets/lock-icon.png" class="img-pwd" alt="">
+                      <h1>Trouble with logging in?</h1>
+                      <h2>Enter your email address, and we we'll send you a link to get back into your account. </h2>
+                      <div class="inputbox">
+                          <input type="text" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" required>
+                          <label for="">Email Address</label>
+                      </div>
+                      <button (click)="forgotpwd()">Send Login Link</button>
+                      <div class="line-container">
+                          <div class="line"></div>
+                          <div class="or-text">OR</div>
+                          <div class="line"></div>
+                      </div>
+                      <div class="register">
+                          <h3><a routerLink="/register">Create New Account</a></h3>
+                      </div>
+                  </form>
+              </div>
+              <div class="form-box2">
+                  <h3><a routerLink="/login">Back to Login</a></h3>
+              </div>
+          </div>
+      </section>

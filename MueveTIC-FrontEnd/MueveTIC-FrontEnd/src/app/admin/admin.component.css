@@ -1,0 +1,1065 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500&display=swap');
+/*Barra de navegación*/
+.app-container {
+    background-color: #f0f0f0;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-family: 'IBM Plex Sans', sans-serif;
+    height: 100vh;
+    width: 100%;
+  }
+
+  /*NUEVA BARRA DE NAVEGACIÓN*/
+
+  /*NUEVA BARRA DE NAVEGACIÓN*/
+
+  nav{
+    display: flex;
+    width: 100%;
+    margin: auto;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'IBM Plex Sans', sans-serif;
+    background-color: white;
+    font-size: 25px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    border-width: 0 0 1px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+
+  }
+
+  .app_logo{
+    width: 50px;
+    margin-right: 12px;
+    margin-left: 10px;
+    left: 0;
+    margin-top: 20px;
+
+  }
+  .Mueve{
+    padding:30px;
+    padding-left: 5px;
+    font-weight: 700;
+    font-size: 30px;
+    cursor: default;
+    margin-top: -5px;
+
+
+  }
+  .TIC{
+    color: #79ed83;
+
+
+  }
+  .menu{
+    font-family: 'IBM Plex Sans', sans-serif;
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    padding-left: 150px;
+    margin-top: 20px;
+  }
+
+  .menu > li > a{
+    display: block;
+    padding:15px 30px;
+    color: black;
+    text-decoration: none;
+
+  }
+  /*
+  .menu > li:not(.opcion) :hover a {
+    /*
+    text-decoration: underline;
+    transition: text-decoration 0.3s ease-in-out;
+    padding-top: 5px;
+    text-decoration-thickness:3px ;
+    text-decoration-color: #79ed83;  Cambia el color del subrayado a verde o el que desees
+    background-color: white;
+    transition: background-color 0.3s ease-in-out;
+
+    color: #79ed83;
+
+    cursor: pointer;  Agregamos un cursor de mano para indicar que es un enlace
+  }*/
+  .menu > li:hover a{
+    /*
+    text-decoration: underline;
+    transition: text-decoration 0.3s ease-in-out;
+    padding-top: 5px;
+    text-decoration-thickness:3px ;
+    text-decoration-color: #79ed83; /* Cambia el color del subrayado a verde o el que desees */
+    background-color: #79ed83;
+    transition: background-color 0.3s ease-in-out;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer; /* Agregamos un cursor de mano para indicar que es un enlace */
+  }
+  .active{
+
+    background-color: #79ed83;
+    transition: background-color 0.3s ease-in-out;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    margin-right: 3px;
+    margin-left: 3px;
+    cursor: pointer; /* Agregamos un cursor de mano para indicar que es un enlace */
+
+  }
+
+  .desplegable{
+    position: absolute;
+    display: none;
+    width: 220px;
+    height: 130px;
+    background-color: #79ed83;
+    color: white;
+    font-size: 22px;
+    box-shadow: 0 0 1.55px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 0px 0px;
+    margin-top: 0.5px;
+  }
+
+  .menu li:hover .desplegable{
+    display: block;
+
+  }
+
+  .desplegable li:hover a{
+    background-color:white;
+    list-style-type: none;
+    font-weight: 700;
+    border-width: 0 0 1px 0;
+    color: black;
+    border-radius: 0%;
+    border-radius: 4px;
+
+
+
+
+  }
+
+  .desplegable li a{
+    display: block;
+    color: black;
+    padding: 15px 15px 15px 20px;
+    text-decoration: none;
+    align-items: left;
+  }
+
+  .icon-perfil{
+    width: 50px;
+    cursor: pointer;
+    position: fixed;
+    right: 15px;
+    z-index: 999;
+    margin-top: 25px;
+  }
+
+  .desplegable-perfil{
+    position: absolute;
+    z-index: 999;
+    display: none;
+    width: 140px;
+    height: 75px;
+    background-color: white;
+    font-size: 22px;
+    box-shadow: 0 0 1.55px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 0px 0px;
+    right: 5px;
+    top: 53px;
+
+
+  }
+  .perfil:hover .desplegable-perfil{
+    display: inline-block;
+    cursor: pointer;
+
+
+  }
+  .desplegable-perfil li:hover a{
+    background-color:#79ed83;
+    list-style-type: none;
+    font-weight: 700;
+    border-width: 0 0 1px 0;
+    color: black;
+    border-radius: 2px;
+
+  }
+  .desplegable-perfil li a{
+    display: block;
+    color: black;
+    padding: 2.5px 2.5px 2.5px 3.5px;
+    text-decoration: none;
+    align-items: left;
+  }
+  .icon-menu{
+    vertical-align: middle;
+    margin-right: 4px;
+    margin-top: 7.25px;
+    margin-bottom: 7.25px;
+    width: 18px;
+    height: 18px;
+    left: 0;
+  }
+  ul li{
+    margin-top: 2px;
+    display: block;
+    justify-content: center;
+    font-size: 0.6em;
+    margin-bottom: -5px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 500;
+
+  }
+
+  .navbar-section {
+
+    margin-right: 10px; /* Añade margen a la derecha de cada enlace */
+  }
+
+
+
+  .right-content span {
+    margin-right: 70px;
+  }
+
+
+
+  /*desplegable menu*/
+
+
+
+
+  .menu-container {
+    position: relative;
+    display: inline-block;
+    right: 0;
+    margin-left: 86%;
+
+    align-items: right;
+    width: 160px;
+    height: 10px;
+
+  }
+
+  .menu-content {
+    display: none;
+    position: relative;
+
+    right: 0;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding-right: 13px;
+    height: 110px;
+    width: 140px;
+
+    top: 100%;
+  }
+
+
+  /* Mostrar el menú cuando se pasa el mouse sobre la imagen */
+  .menu-container:hover .menu-content {
+    display: block;
+    background-color:white;
+
+  }
+
+  /* Estilo para la línea horizontal */
+  .horizontal-line {
+    align-items: center;
+    margin-top: 150px;
+    display: flex;
+    margin-right: 1000px;
+    margin-left: 38px;
+
+  }
+
+
+
+  /* Estilo para la barra izquierda de 5cm */
+  .short-divider {
+    flex: 0 0 5cm; /* No ocupa espacio adicional y tiene un ancho de 5cm */
+    border-top: 4px solid #79ed83; /* Línea horizontal de color verde */
+  }
+
+  /* Estilo para el texto "Consultar" */
+  .line-text {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 700;
+    padding: 0 10px; /* Espaciado a izquierda y derecha del texto */
+    text-align: left; /* Alinea el texto a la izquierda */
+    flex: 0; /* No ocupa espacio adicional a la izquierda del texto */
+  }
+
+  /* Estilo para la barra derecha de 30cm */
+  .long-divider {
+    flex: 0 0 20.5cm; /* No ocupa espacio adicional y tiene un ancho de 30cm */
+    border-top: 4px solid #79ed83; /* Línea horizontal de color verde */
+  }
+
+
+
+
+
+
+  /* --------------------------------CONSULTAR--------------------------------- */
+
+
+
+  .form-container-consultar {
+    display: flex;
+    margin-top: 2px; /* Margen de 30px desde la barra de navegación */
+    margin-right: 50px;
+    margin-left: 50px;
+    background-color: #ffffff; /* Color de fondo del formulario */
+    padding: 30px; /* Espacio interno del formulario */
+    font-family: 'IBM Plex Sans', sans-serif;
+    width: 1000px;
+    height: 330px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  }
+
+  /* Estilo para la parte izquierda del formulario */
+  .form-left-consultar {
+    flex: 1; /* Ocupa el espacio disponible */
+    padding-right: 20px; /* Espaciado a la derecha de la parte izquierda */
+  }
+
+  /* Estilo para la parte derecha del formulario */
+  .form-right-consultar {
+    flex: 1; /* Ocupa el espacio disponible */
+    padding-left: 20px; /* Espaciado a la izquierda de la parte derecha */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra verticalmente los elementos */
+  }
+
+  /* Estilo para la barra de separación */
+  .form-separator-consultar {
+    width: 5px; /* Ancho de la barra de separación */
+    background-color: #79ed83; /* Color verde para la barra de separación */
+    margin: 0 20px; /* Espaciado a izquierda y derecha de la barra de separación */
+    border-radius: 10px; /* Agrega bordes redondeados de 10px */
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* Agrega una sombra suave */
+
+  }
+
+  /* Estilo para las etiquetas y campos de entrada */
+  label {
+    display: block;
+    margin-bottom: 10px; /* Espaciado entre etiquetas */
+  }
+
+  .consultar{ /*input conusltar*/
+    width: 100%;
+    padding: 10px; /* Aumenta el espaciado interno */
+    margin-bottom: 20px;
+    border: 1px solid #ccc; /* Agrega un borde con color gris */
+    border-radius: 5px; /* Agrega bordes redondeados */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Agrega una sombra suave */
+    background-color: #f9f9f9; /* Cambia el color de fondo a un tono más claro */
+    color: #333; /* Cambia el color del texto */
+    font-size: 16px; /* Ajusta el tamaño del texto */
+
+  }
+
+  /* Estilo para la imagen */
+  img {
+    max-width: 100%; /* Ajusta el tamaño máximo de la imagen para adaptarse al contenedor */
+    width: 250px; /* Ajusta el ancho de la imagen según tus necesidades */
+    height: auto; /* Mantiene la proporción de aspecto original */
+    margin-top: 20px; /* Espaciado superior entre la imagen y los campos */
+  }
+
+
+  /** ----------------------------------MODIFICAR--------------------------------- */
+
+  .form-container-modificar {
+    display: flex;
+    margin-top: 2px; /* Margen de 30px desde la barra de navegación */
+    margin-right: 50px;
+    margin-left: 50px;
+    background-color: #ffffff; /* Color de fondo del formulario */
+    padding: 30px; /* Espacio interno del formulario */
+    font-family: 'IBM Plex Sans', sans-serif;
+    width: 1000px;
+    height: 330px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative; /* Posicionamiento relativo del formulario */
+  }
+
+  /* Estilo para la parte izquierda del formulario */
+  .form-left-modificar {
+    flex: 1; /* Ocupa el espacio disponible */
+    padding-right: 20px; /* Espaciado a la derecha de la parte izquierda */
+  }
+
+  /* Estilo para la parte derecha del formulario */
+  .form-right-modificar {
+    flex: 1; /* Ocupa el espacio disponible */
+    padding-left: 20px; /* Espaciado a la izquierda de la parte derecha */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra verticalmente los elementos */
+  }
+
+  /* Estilo para la barra de separación */
+  .form-separator-modificar {
+    width: 5px; /* Ancho de la barra de separación */
+    background-color: #79ed83; /* Color verde para la barra de separación */
+    margin: 0 20px; /* Espaciado a izquierda y derecha de la barra de separación */
+    border-radius: 10px; /* Agrega bordes redondeados de 10px */
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* Agrega una sombra suave */
+
+  }
+
+  .input{ /*input conusltar*/
+    width: 100%;
+    padding: 10px; /* Aumenta el espaciado interno */
+    margin-bottom: 20px;
+    border: 1px solid #ccc; /* Agrega un borde con color gris */
+    border-radius: 5px; /* Agrega bordes redondeados */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Agrega una sombra suave */
+    background-color: #f9f9f9; /* Cambia el color de fondo a un tono más claro */
+    color: #333; /* Cambia el color del texto */
+    font-size: 16px; /* Ajusta el tamaño del texto */
+
+  }
+
+
+  /* Estilo para el contenedor de los botones */
+  .form-button-modificar {
+    position: relative;
+    text-align: right; /* Alinea los botones a la derecha */
+  }
+
+  /* Estilo para el botón "Save" (verde) */
+  .button-save {
+    background-color: #79ed83; /* Fondo verde */
+    color: #000000; /* Texto blanco */
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100px;
+  }
+
+  /* Estilo para el botón "Cancel" (rojo) */
+  .button-cancelar {
+    background-color: #ff5733; /* Fondo rojo */
+    color: #000000; /* Texto blanco */
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100px;
+  }
+
+  /* Estilo adicional para el contenedor de los botones para la posición absoluta */
+  .form-button-modificar.absolute {
+    position: absolute;
+    bottom: 20px; /* Distancia desde la parte inferior */
+    right: 20px; /* Distancia desde la derecha */
+  }
+
+
+
+
+  /* ----------------------------------AÑADIR--------------------------------- */
+
+
+  .form-container {
+    display: flex;
+    margin-top: 2px; /* Margen de 30px desde la barra de navegación */
+    margin-right: 50px;
+    margin-left: 50px;
+    background-color: #ffffff; /* Color de fondo del formulario */
+    padding: 30px; /* Espacio interno del formulario */
+    font-family: 'IBM Plex Sans', sans-serif;
+    width: 1000px;
+    height: 330px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative; /* Posicionamiento relativo del formulario */
+  }
+
+  /* Estilo para la parte izquierda del formulario */
+  .form-left {
+    flex: 1; /* Ocupa el espacio disponible */
+    padding-right: 20px; /* Espaciado a la derecha de la parte izquierda */
+  }
+
+  /* Estilo para la parte derecha del formulario */
+  .form-right {
+    flex: 1; /* Ocupa el espacio disponible */
+    padding-left: 20px; /* Espaciado a la izquierda de la parte derecha */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra verticalmente los elementos */
+  }
+
+  /* Estilo para la barra de separación */
+  .form-separator {
+    width: 5px; /* Ancho de la barra de separación */
+    background-color: #79ed83; /* Color verde para la barra de separación */
+    margin: 0 20px; /* Espaciado a izquierda y derecha de la barra de separación */
+    border-radius: 10px; /* Agrega bordes redondeados de 10px */
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* Agrega una sombra suave */
+
+  }
+
+  /* Estilo para el contenedor de los botones */
+  .form-button {
+    position: relative;
+    text-align: right; /* Alinea los botones a la derecha */
+  }
+
+
+
+
+  /* Estilo adicional para el contenedor de los botones para la posición absoluta */
+  .form-button.absolute {
+    position: absolute;
+    bottom: 20px; /* Distancia desde la parte inferior */
+    right: 20px; /* Distancia desde la derecha */
+  }
+
+
+
+
+
+
+
+
+  .tabla-scroll{
+    position: absolute;
+    overflow-y: auto;
+    max-height: 450px;
+    width: 90%;
+    margin: 155px 5px 0px 38px;
+
+  }
+
+  .tabla-scroll-vehicles{
+    position: absolute;
+    overflow-y: auto;
+    max-height: 450px;
+    width: 90%;
+    margin: 290px 5px 0px 35px;
+
+
+  }
+
+  .tabla-scroll-facturacion{
+    position: absolute;
+    overflow-y: auto;
+    max-height: 270px;
+    width: 90%;
+    margin: 410px 5px 0px 38px;
+
+  }
+  .tabla-scroll-facturacion-total{
+    position: absolute;
+    overflow-y: auto;
+    max-height: 270px;
+    width: 90%;
+    margin: 670px 5px 0px 38px;
+
+  }
+
+    .sub-text-list {
+        position: absolute;
+        font-size: 1em;
+        font-weight: 800;
+        justify-self: start;
+        margin: 195px 20px 0px 50px;
+
+        }
+    .sub-text-list-fact-tipo {
+        position: absolute;
+        font-size: 1em;
+        font-weight: 800;
+        justify-self: start;
+        margin: 295px 20px 0px 50px;
+    }
+
+
+    .p-class{
+        justify-self: start;
+        margin: 160px 5px 0px 50px;
+        font-weight: 100;
+        position: absolute;
+        }
+
+
+  .lists{
+
+    width: 100%;
+    border-collapse: collapse;
+    border: none;
+    border-color: #f3f3f3;
+    border-radius: 10px;
+
+  }
+
+  th{
+    padding: 8px;
+    text-align: left;
+  }
+  /* Estilo para las celdas de datos (tbody) */
+  td {
+    padding: 8px;
+    text-align: left;
+    background-color: white;
+    border: none;
+  }
+
+  /* Estilo para las filas impares */
+  tr {
+    border:15px solid #f3f3f3;
+
+
+  }
+
+  tr td:nth-child(1){
+    width: 5%;
+  }
+  tr td:nth-child(2){
+    width: 10%;
+
+  }
+  tr td:nth-child(3){
+    width: 50%;
+  }
+  tr td:nth-child(4){
+    width: 10%;
+  }
+  tr td:nth-child(5){
+    width: 10%;
+  }
+  tr td:nth-child(6){
+    width: 10%;
+  }
+
+  .icon-person{
+    width: 45px;
+    height: 45px;
+    margin-right: 12px;
+    margin-top: -1%;
+
+
+  }
+  .icon-active{
+    width: 45px;
+    height: 45px;
+    margin-right: 12px;
+    margin-top: -1%;
+    cursor: pointer;
+
+  }
+
+  .icon-button{
+    width: 75px;
+    height: 40px;
+    margin-left: 30%;
+    cursor: pointer;
+    margin-top: -1%;
+
+
+  }
+  section{
+    font-family: 'IBM Plex Sans', sans-serif;
+  background-color:#f3f3f3 ;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+
+
+
+  }
+
+
+  .line-container {
+    display: flex;
+  align-items: center;
+  width: 88%;
+  font-weight: 800;
+  position: absolute;
+  margin-right: 50px;
+  margin-left: 50px;
+  margin-top: 125px
+
+
+  }
+  .line-container-facturacion {
+    display: flex;
+  align-items: center;
+  width: 88%;
+  font-weight: 800;
+  position: absolute;
+  margin-right: 50px;
+  margin-left: 50px;
+  margin-top: 260px
+
+
+
+  }
+
+  .line {
+    flex-grow: 1;
+    border-top: 4px solid #79ed83;
+  }
+  .line-small{
+    flex-grow: 0.10;
+    border-top: 4px solid #79ed83;
+  }
+
+  .text-list {
+    margin: 0 20px;
+    font-size: 1.25em;
+  }
+
+
+  .button-add{
+    position: absolute;
+    margin: 650px 5px 0px 750px;
+    cursor: pointer;
+    height: 55px;
+    width: 212px;
+
+
+  }
+  .button-add-center{
+    position: absolute;
+    margin: 650px 5px 0px 550px;
+   /* height: 65px;8*/
+    cursor: pointer;
+    height: 55px;
+    width: 212px;
+
+
+  }
+
+  .button-volver{
+    position: absolute;
+    margin: 650px 5px 0px 410px;
+    cursor: pointer;
+    height: 55px;
+    width: 212px;
+
+
+  }
+
+  .margin{
+    width: 80%;
+    height: 5%;
+    margin-bottom: 13%;
+
+  }
+
+  .line-container2 {
+    display: flex;
+    align-items: center;
+    width: 88%;
+    font-weight: 800;
+    margin-bottom: 5%;
+    margin-top: 6.75%;
+
+  }
+
+  .line2 {
+    flex-grow: 1;
+    border-top: 4px solid #79ed83;
+  }
+  .line-small2{
+    flex-grow: 0.10;
+    border-top: 4px solid #79ed83;
+  }
+
+  .text-list2 {
+    margin: 0 20px;
+    font-size: 1.25em;
+  }
+
+  /*Botones Filtro*/
+  .container{
+    position:absolute;
+    justify-self: start;
+    margin: 235px 20px 0px 40px;
+
+    }
+    .container-facturacion{
+        position:absolute;
+        justify-self: start;
+        margin: 335px 20px 0px 50px;
+
+    }
+
+    .filtro_input[type="radio"]{
+    display: none;
+    }
+
+    .filtro_label{
+    position: relative;
+    color: #79ed83;
+    font-size: 15px;
+    border: 2px solid #79ed83;
+    padding: 10px 30px;
+    border-radius: 5px;
+    align-items: center;
+    cursor: pointer;
+    display: inline-flex;
+    margin-right: 10px;
+    }
+
+    .filtro_label::before{
+
+    content: "";
+    height: 16px;
+    width: 16px;
+    border: 2px solid #79ed83;
+    border-radius: 50%;
+    margin-right: 20px;
+    }
+
+    .filtro_input[type="radio"]:checked + .filtro_label{
+    background-color: #79ed83;
+    color: white;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in;
+
+    }
+
+    .filtro_input[type="radio"]:checked + .filtro_label::before{
+    height: 11px;
+    width: 11px;
+    border: 5px solid white;
+    background-color: #79ed83;
+
+
+    }
+    /*Desplegable facturacion*/
+
+   .input-fecha-mes {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      background-color: #f9f9f9;
+      color: #333;
+      font-size: 16px;
+      position: absolute;
+      margin: 180px 20px 0px 80px;
+      cursor: pointer;
+
+    }
+    .sub-text-list-fac{
+      position: absolute;
+    font-size: 2em;
+    font-weight: 800;
+    justify-self: start;
+    margin: 178px 20px 0px 200px;
+    }
+
+    .input-fecha-año {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      background-color: #f9f9f9;
+      color: #333;
+      font-size: 16px;
+
+      position: absolute;
+      margin: 180px 0px 0px 250px;
+      cursor: pointer;
+
+    }
+    .button-facturacion{
+        width: 180px;
+        height: 48px;
+        position: absolute;
+        margin: 178px 0px 0px 483px;
+        cursor: pointer;
+
+    }
+    .button-quitfilter{
+        width: 170px;
+        height: 48px;
+        position: absolute;
+        margin: 178px 0px 0px 700px;
+        cursor: pointer;
+    }
+    .icon-reserva{
+        width: 45px;
+        height: 45px;
+
+        margin-top: -1%;
+        cursor: pointer;
+        }
+/*ESTRELLAS PUNTUACION*/
+.star {
+    font-size: 2rem;
+    cursor: pointer;
+    color: #d3d3d3; /* Color de estrella inactiva */
+  }
+
+  .star-activa {
+    color: #ffd700; /* Color de estrella activa */
+  }
+  .perfil-userName{
+    width: 50px;
+    position: fixed;
+    right: 155px;
+    z-index: 999;
+    margin-top: 38px;
+    font-size: 14px;
+    margin-right: 5px;
+    font-weight: 500;
+
+
+  }
+
+
+  /*ESTILOS YOLANDA*/
+
+
+  .horizontal-line-configuracion {
+    align-items: center;
+    margin-top: 150px;
+    display: flex;
+    margin-right: 1000px;
+    margin-left: 90px;
+
+  }
+
+  .short-divider-configuracion {
+    flex: 0 0 5cm;
+    border-top: 4px solid #79ed83; /* Línea horizontal de color verde */
+  }
+
+
+  .line-text-configuracion  {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 700;
+    padding: 0 10px; /* Espaciado a izquierda y derecha del texto */
+    text-align: left; /* Alinea el texto a la izquierda */
+    flex: 0; /* No ocupa espacio adicional a la izquierda del texto */
+  }
+
+
+  .long-divider-configuracion  {
+    flex: 0 0 18.9cm; /* No ocupa espacio adicional y tiene un ancho de 30cm */
+    border-top: 4px solid #79ed83; /* Línea horizontal de color verde */
+  }
+
+
+
+  .horizontal-line-reserva {
+    align-items: center;
+    margin-top: 150px;
+    display: flex;
+    margin-right: 1000px;
+    margin-left: 50px;
+
+  }
+  .input-fecha {
+    width: 90px; /* O el ancho deseado */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    color: #333;
+    font-size: 16px;
+    margin-right: 5px; /* Espaciado a la derecha del campo (ajusta según sea necesario) */
+  }
+
+
+  /* Contenedor de los select */
+  .fecha-container {
+    display: inline-flex;
+  }
+
+  /* Estilo específico para los select en el contenedor */
+  .fecha-container select {
+    flex: 1;
+  }
+  .button-volverForm {
+    background-color: #79abed; /* Fondo rojo */
+    color: #000000; /* Texto blanco */
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100px;
+  }
+  .button-volver-izquierda {
+    background-color: #79abed; /* Fondo rojo */
+    color: #000000; /* Texto blanco */
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100px;
+  }
+
+  .button-backFoto {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    width: 170px;
+    margin-right:50px;
+  }
+
+  .button-backFoto img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+  }
+
+  .button-saveFoto {
+    background-color: transparent; /* Fondo transparente */
+    border: none;
+    padding: 0;
+    margin: 5px;
+    cursor: pointer;
+    width: 170px;
+  }
+  .button-saveFoto img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+  }
+
+  .textarea {
+    height: 100px; /* Establece la altura deseada del textarea */
+  }
+  .form-center{
+    flex: 1; /* Ocupa el espacio disponible */
+    padding-left: 10px; /* Espaciado a la izquierda de la parte derecha */
+    display: flex;
+    flex-direction: column;
+  }
+

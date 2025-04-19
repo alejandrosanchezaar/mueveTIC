@@ -1,0 +1,120 @@
+<div class="barra-navegacion">
+  <nav>
+      <a> <img src="assets/logo.png" alt="" class="app_logo"></a>
+      <span  class="Mueve">Mueve <span class="TIC">TIC</span></span>
+      <ul class="menu">
+        <li><a (click)="changeMenu('reservar')" [class.active]="menu === 'reservar'">Reservar Vehículos</a>
+        <li><a (click)="changeMenu('cargar')" [class.active]="menu === 'cargar'">Cargar Vehículos</a></li>
+      </ul>
+  </nav>
+  <label class="perfil-userName">{{ getNameUser(email) }}</label>
+  <div class="perfil">
+  <img  src="assets/perfil_icon.png" class="icon-perfil" alt="">
+  <ul class="desplegable-perfil">
+    <li><a (click)="logout()"><img src="assets/log_out.png" alt=""  class="icon-menu">Cerrar Sesión</a></li>
+  </ul>
+  </div>
+</div>
+
+
+<section *ngIf="menu === 'reservar'">
+<div class="line-container">
+  <div class="line-small"></div>
+  <div class="text-list">Reservar Vehículo para Cargar</div>
+  <div class="line"></div>
+</div>
+<p class="p-class">Para reservar un vehículo seleccione el tipo de vehículo que desee cargar y pulse en la opción de reservarlo.</p>
+  <div class="sub-text-list">Tipo de Vehículo</div>
+
+  <div class="container">
+    <input class="filtro_input" type="radio" [(ngModel)]="filter" value="coche" name="size" id="coche">
+    <label class ="filtro_label" for="coche" >Coche</label>
+
+    <input class="filtro_input" type="radio" [(ngModel)]="filter" value="moto" name="size" id="moto">
+    <label class ="filtro_label" for="moto">Moto</label>
+
+    <input class="filtro_input" type="radio" [(ngModel)]="filter" value="patinete" name="size" id="patinete">
+    <label class ="filtro_label" for="patinete" >Patinete</label>
+</div>
+
+  <div *ngIf="filter === 'coche'">
+    <div class="tabla-scroll">
+      <table class="lists">
+          <caption></caption>
+          <th></th>
+          <tbody>
+              <tr *ngFor="let car of cars_list; let i=index" >
+                  <td><img src="assets/vehiculo_icon.png" class="icon-person" alt=""></td>
+                  <td style="width: 15%;">{{car.model}}</td>
+                  <td > {{car.licensePlate}}</td>
+                  <td><img (click)="reserveVehicle(car.model, car.licensePlate)" src="assets/añadir_carga_boton.png" class="icon-reserva" alt=""></td>
+              </tr>
+          </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="filter === 'moto'">
+    <div class="tabla-scroll">
+      <table class="lists">
+          <caption></caption>
+          <th></th>
+          <tbody>
+              <tr *ngFor="let moto of motorcycle_list; let i=index" >
+                  <td><img src="assets/vehiculo_icon.png" class="icon-person" alt=""></td>
+                  <td style="width: 15%;">{{moto.model}}</td>
+                  <td> {{moto.licensePlate}}</td>
+                  <td><img (click)="reserveVehicle(moto.model, moto.licensePlate)" src="assets/añadir_carga_boton.png" class="icon-reserva" alt=""></td>
+              </tr>
+          </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="filter === 'patinete'">
+    <div class="tabla-scroll">
+      <table class="lists">
+          <caption></caption>
+          <th></th>
+          <tbody>
+              <tr *ngFor="let scooter of scooters_list; let i=index" >
+                  <td ><img src="assets/vehiculo_icon.png" class="icon-person" alt=""></td>
+                  <td style="width: 15%;">{{scooter.model}}</td>
+                  <td > {{scooter.licensePlate}}</td>
+                  <td><img (click)="reserveVehicle(scooter.model, scooter.licensePlate)" src="assets/añadir_carga_boton.png" class="icon-reserva" alt=""></td>
+
+              </tr>
+          </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<section *ngIf="menu === 'cargar'">
+  <div class="line-container">
+    <div class="line-small"></div>
+    <div class="text-list">Cargar Vehículos</div>
+    <div class="line"></div>
+  </div>
+  <p class="p-class">Para cargar un vehículo pulse el icono correspondiente de cargar del vehículo que desee. Para cancelar la reserva de la carga de un vehículo pulse la opción correspondiente a cancelar.</p>
+  <div class="tabla-scroll_reservas">
+    <table class="lists">
+        <caption></caption>
+        <th></th>
+        <tbody>
+            <tr *ngFor="let booking of booking_lists; let i=index" >
+                <td style="width: 5%;" ><img src="assets/vehiculo_icon.png" class="icon-person" alt=""></td>
+                <td style="width: 15%;">{{booking.vehicle.model}}</td>
+                <td style="width: 15%;"> {{booking.vehicle.licensePlate}}</td>
+                <td *ngIf="booking.vehicle.type === 'car'" style="width:50%;" > Coche</td>
+                <td *ngIf="booking.vehicle.type === 'motorcycle'" style="width: 50%;" > Moto</td>
+                <td *ngIf="booking.vehicle.type === 'scooter'" style="width: 50%;" >Patinete</td>
+                <td ><img (click)="chargeVehicle(i, booking.vehicle.model, booking.vehicle.licensePlate)" src="assets/cargar_boton.png" class="icon-reserva" alt=""></td>
+                <td ><img (click)="cancelCharge(i, booking.vehicle.model, booking.vehicle.licensePlate)" src="assets/cancelar_carga_boton.png" class="icon-reserva" alt=""></td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
+</section>
+

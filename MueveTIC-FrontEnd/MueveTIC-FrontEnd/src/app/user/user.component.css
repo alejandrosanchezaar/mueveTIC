@@ -1,0 +1,813 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500&display=swap');
+.app-container {
+  background-color: #f0f0f0;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+.app-container-home {
+  background-color: #f0f0f0;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-family: 'IBM Plex Sans', sans-serif;
+  width: 100%;
+  height: 300vh;
+}
+  /*NUEVA BARRA DE NAVEGACIÓN*/
+
+  nav{
+    display: flex;
+    width: 100%;
+    margin: auto;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'IBM Plex Sans', sans-serif;
+    background-color: white;
+    font-size: 25px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    border-width: 0 0 1px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .app_logo{
+    width: 50px;
+    margin-right: 12px;
+    margin-left: 10px;
+    left: 0;
+    margin-top: 20px;
+
+  }
+  .Mueve{
+    padding:30px;
+    padding-left: 5px;
+    font-weight: 700;
+    font-size: 30px;
+    cursor: pointer;
+    margin-top: -5px;
+  }
+
+  .TIC{
+    color: #79ed83;
+  }
+
+  .menu{
+    font-family: 'IBM Plex Sans', sans-serif;
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    padding-left: 150px;
+    margin-top: 20px;
+  }
+
+  .menu > li > a{
+    display: block;
+    padding:15px 30px;
+    color: black;
+    text-decoration: none;
+  }
+
+  .menu > li:hover a{
+    background-color: #79ed83;
+    transition: background-color 0.3s ease-in-out;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer; /* Agregamos un cursor de mano para indicar que es un enlace */
+  }
+  .active{
+    background-color: #79ed83;
+    transition: background-color 0.3s ease-in-out;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    margin-right: 3px;
+    margin-left: 3px;
+    cursor: pointer; /* Agregamos un cursor de mano para indicar que es un enlace */
+  }
+
+  .icon-perfil{
+    width: 50px;
+    cursor: pointer;
+    position: fixed;
+    right: 15px;
+    z-index: 999;
+    margin-top: 25px;
+  }
+
+  .perfil-userName{
+    width: 50px;
+    position: fixed;
+    right: 155px;
+    z-index: 999;
+    margin-top: 38px;
+    font-size: 14px;
+    margin-right: 5px;
+    font-weight: 500;
+  }
+
+  .desplegable-perfil{
+    position: absolute;
+    z-index: 999;
+    display: none;
+    width: 140px;
+    height: 38px;
+    background-color: white;
+    font-size: 22px;
+    box-shadow: 0 0 1.55px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 0px 0px;
+    right: 5px;
+    top: 50px;
+  }
+  .perfil:hover .desplegable-perfil{
+    display: inline-block;
+    cursor: pointer;
+  }
+  .desplegable-perfil li:hover a{
+    background-color:#79ed83;
+    list-style-type: none;
+    font-weight: 700;
+    border-width: 0 0 1px 0;
+    color: black;
+    border-radius: 2px;
+
+  }
+  .desplegable-perfil li a{
+    display: block;
+    color: black;
+    padding: 2.5px 2.5px 2.5px 3.5px;
+    text-decoration: none;
+    align-items: left;
+  }
+  .icon-menu{
+    vertical-align: middle;
+    margin-right: 4px;
+    margin-top: 7.25px;
+    margin-bottom: 7.25px;
+    width: 18px;
+    height: 18px;
+    left: 0;
+  }
+  ul li{
+    margin-top: 2px;
+    display: block;
+    justify-content: center;
+    font-size: 0.6em;
+    margin-bottom: -5px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 500;
+
+  }
+
+
+
+  /*Botones Filtro*/
+  .container{
+  position:absolute;
+  justify-self: start;
+  margin: 235px 20px 0px 40px;
+
+  }
+  .filtro_input[type="radio"]{
+    display: none;
+    }
+
+    .filtro_label{
+    position: relative;
+    color: #79ed83;
+    font-size: 15px;
+    border: 2px solid #79ed83;
+    padding: 10px 30px;
+    border-radius: 5px;
+    align-items: center;
+    cursor: pointer;
+    display: inline-flex;
+    margin-right: 10px;
+    }
+
+    .filtro_label::before{
+
+    content: "";
+    height: 16px;
+    width: 16px;
+    border: 2px solid #79ed83;
+    border-radius: 50%;
+    margin-right: 20px;
+    }
+
+    .filtro_input[type="radio"]:checked + .filtro_label{
+    background-color: #79ed83;
+    color: white;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in;
+
+    }
+
+    .filtro_input[type="radio"]:checked + .filtro_label::before{
+    height: 9px;
+    width: 9px;
+    border: 5px solid white;
+    background-color: #79ed83;
+    }
+
+
+  section{
+  font-family: 'IBM Plex Sans', sans-serif;
+  background-color:#f3f3f3 ;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+
+  }
+
+  /*TABLAS*/
+  .tabla-scroll{
+  position: absolute;
+  overflow-y: auto;
+  max-height: 450px;
+  width: 90%;
+  margin: 290px 5px 0px 35px;
+
+  }
+  .tabla-scroll_reservas{
+    position: absolute;
+    overflow-y: auto;
+    max-height: 530px;
+    width: 90%;
+    margin: 155px 5px 0px 38px;
+
+  }
+  .lists{
+
+  width: 100%;
+  border-collapse: collapse;
+  border: none;
+  border-color: #f3f3f3;
+  border-radius: 10px;
+
+  }
+
+
+
+  /* Estilo para las celdas de datos (tbody) */
+  td {
+  padding: 8px;
+  text-align: left;
+  background-color: white;
+  border: none;
+  }
+
+  /* Estilo para las filas impares */
+  tr {
+  border:15px solid #f3f3f3;
+
+
+  }
+
+  tr td:nth-child(1){
+    width: 5%;
+  }
+  tr td:nth-child(2){
+    width: 10%;
+  }
+  tr td:nth-child(3){
+    width: 10%;
+  }
+  tr td:nth-child(4){
+    width: 55%;
+  }
+  tr td:nth-child(5) {
+    width: 10%;
+  }
+
+
+  .icon-person{
+  width: 45px;
+  height: 45px;
+  margin-right: 12px;
+  margin-top: -1%;
+
+
+  }
+
+  .icon-reserva{
+    width: 45px;
+    height: 45px;
+    margin-right: 12px;
+    margin-top: -1%;
+    cursor: pointer;
+    }
+
+ /*ESTILO TITULOS DE SECCIONES*/
+.line-container {
+    display: flex;
+    align-items: center;
+    width: 88%;
+    font-weight: 800;
+    position: absolute;
+    margin-right: 50px;
+    margin-left: 50px;
+    margin-top: 125px
+}
+
+
+  .line {
+  flex-grow: 1;
+  border-top: 4px solid #79ed83;
+  }
+  .line-small{
+  flex-grow: 0.10;
+  border-top: 4px solid #79ed83;
+  }
+
+  .text-list {
+  margin: 0 20px;
+  font-size: 1.25em;
+  }
+  .sub-text-list {
+  position: absolute;
+  font-size: 1em;
+  font-weight: 800;
+  justify-self: start;
+  margin: 195px 20px 0px 50px;
+
+  }
+
+  .p-class{
+  justify-self: start;
+  margin: 160px 5px 0px 50px;
+  font-weight: 100;
+  position: absolute;
+  }
+
+  /*ESTRELLAS PUNTUACION*/
+  .star {
+    font-size: 2rem;
+    cursor: pointer;
+    color: #d3d3d3; /* Color de estrella inactiva */
+  }
+
+  .star-activa {
+    color: #ffd700; /* Color de estrella activa */
+  }
+
+
+
+
+/****PARTE HOME***********************************************************/
+
+
+
+.container-home {
+  margin-top: 160px;
+  font-family: 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+.section-izquierda {
+  columns: 2;
+  background-color: #c1efc2;
+  width: min-content;
+  margin-right: -50px;
+  margin-left:200px;
+  border-radius: 30px;
+  margin-bottom: 50px;
+  padding: 30px;
+
+
+}
+.image-izquierda img {
+  border-radius: 25px;
+}
+
+.section-derecha {
+  columns: 2;
+  background-color: #ffffff;
+  width: min-content;
+  margin-left: 0px;
+  border-radius: 30px;
+  margin-bottom: 50px;
+  padding: 30px;
+
+
+}
+
+.section-derecha img {
+  border-radius: 25px;
+
+}
+
+.text {
+  width: 45%;
+  margin-left: 90px;
+}
+
+.text p {
+  font-size: 18px;
+  text-align: justify;
+  color: #403e3e;
+}
+
+.h2-derecha {
+  font-size: 30px;
+  text-align:left;
+    font-weight: 800;
+}
+.h2-izquierda {
+  font-size: 30px;
+  text-align:right;
+  font-weight: 800;
+}
+
+
+
+.text .palabra-clave {
+  color: #79ed83; /* Verde */
+  font-weight: 900;
+}
+
+.text .palabra-clave-izq {
+  color: #ffffff; /* Verde */
+  font-weight: 900;
+}
+
+
+.video-coche{
+  height: 350px;
+  width: 570px;
+  background-color:#aee1ff;
+  margin-bottom: 50px;
+  border-radius: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.video-puntuacion{
+  height: 350px;
+  width: 570px;
+  background-color:#f3b611;
+  margin-bottom: 50px;
+  border-radius: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.h1-home{
+  font-size: 50px;
+  text-align: center;
+  font-weight: 800;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  color: #79ed83;
+}
+
+
+
+/*******************************************************************************************************************************************
+
+/* Estilo para la línea horizontal */
+.horizontal-line {
+  align-items: center;
+  margin-top: 150px;
+  display: flex;
+  margin-right: 1000px;
+  margin-left: 5px;
+
+}
+.horizontal-line-ReservaActiva {
+  align-items: center;
+  margin-top: 150px;
+  display: flex;
+  margin-right: 1000px;
+  margin-left: 45px;
+
+}
+
+
+/* Estilo para la barra izquierda de 5cm */
+.short-divider {
+  flex: 0 0 5cm; /* No ocupa espacio adicional y tiene un ancho de 5cm */
+  border-top: 4px solid #79ed83; /* Línea horizontal de color verde */
+
+}
+
+/* Estilo para el texto "Consultar" */
+.line-text {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 700;
+  padding: 0 10px; /* Espaciado a izquierda y derecha del texto */
+  text-align: left; /* Alinea el texto a la izquierda */
+  flex: 0; /* No ocupa espacio adicional a la izquierda del texto */
+}
+
+/* Estilo para la barra derecha de 30cm */
+.long-divider {
+  flex: 0 0 20.1cm; /* No ocupa espacio adicional y tiene un ancho de 30cm */
+  border-top: 4px solid #79ed83; /* Línea horizontal de color verde */
+}
+.long-divider-Perfil {
+  flex: 0 0 21.4cm; /* No ocupa espacio adicional y tiene un ancho de 30cm */
+  border-top: 4px solid #79ed83; /* Línea horizontal de color verde */
+}
+.long-divider-ReservaActiva {
+  flex: 0 0 20.2cm; /* No ocupa espacio adicional y tiene un ancho de 30cm */
+  border-top: 4px solid #79ed83; /* Línea horizontal de color verde */
+}
+
+.horizontal-line-valoracion {
+  align-items: center;
+  margin-top: 10px;
+  display: flex;
+  margin-right: 1005px;
+  margin-left: 25px;
+
+}
+
+.short-divider-valoracion {
+  flex: 0 0 5cm; /* No ocupa espacio adicional y tiene un ancho de 5cm */
+  border-top: 4px solid #7d94f0; /* Línea horizontal de color verde */
+
+}
+
+/* Estilo para el texto "Consultar" */
+.line-text-valoracion {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 700;
+  padding: 0 10px; /* Espaciado a izquierda y derecha del texto */
+  text-align: left; /* Alinea el texto a la izquierda */
+  flex: 0; /* No ocupa espacio adicional a la izquierda del texto */
+}
+
+/* Estilo para la barra derecha de 30cm */
+.long-divider-valoracion {
+  flex: 0 0 21cm; /* No ocupa espacio adicional y tiene un ancho de 30cm */
+  border-top: 4px solid #7d94f0; /* Línea horizontal de color verde */
+}
+
+
+
+.form-right-Perfil {
+  max-width: 100%; /* Ajusta el tamaño máximo de la imagen para adaptarse al contenedor */
+  width: 250px;
+  height: auto;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+
+
+
+.input-formularios{
+  width: 100%;
+  padding: 10px; /* Aumenta el espaciado interno */
+  margin-bottom: 20px;
+  border: 1px solid #ccc; /* Agrega un borde con color gris */
+  border-radius: 5px; /* Agrega bordes redondeados */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Agrega una sombra suave */
+  background-color: #f9f9f9; /* Cambia el color de fondo a un tono más claro */
+  color: #333; /* Cambia el color del texto */
+  font-size: 16px; /* Ajusta el tamaño del texto */
+
+}
+
+.input-fecha {
+  width: 90px; /* O el ancho deseado */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  color: #333;
+  font-size: 16px;
+  margin-right: 5px; /* Espaciado a la derecha del campo (ajusta según sea necesario) */
+}
+
+
+
+
+/* Estilo para el botón "Save" (verde) */
+.button-save {
+  background-color: transparent; /* Fondo transparente */
+  border: none;
+  padding: 0;
+  margin: 5px;
+  cursor: pointer;
+  width: 170px;
+}
+.button-save img {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+/* Estilo para el botón "Cancel" (rojo) */
+.button-cancelar {
+  background-color: transparent; /* Fondo transparente */
+  border: none;
+  padding: 0;
+  margin: 5px;
+  cursor: pointer;
+  width: 170px;
+}
+
+.button-cancelar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+
+.button-saveValoracion{
+  background-color: transparent; /* Fondo transparente */
+  border: none;
+  padding: 0;
+  margin-right:470px;
+  cursor: pointer;
+  width: 170px;
+
+}
+.button-saveValoracion img {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+
+.button-volver {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 170px;
+  margin-right:480px;
+}
+
+.button-volver img {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+
+
+.form-container {
+  display: flex;
+  margin-top: 10px; /* Margen de 30px desde la barra de navegación */
+  margin-right: 50px;
+  margin-left: 50px;
+  background-color: #ffffff; /* Color de fondo del formulario */
+  padding: 30px; /* Espacio interno del formulario */
+  font-family: 'IBM Plex Sans', sans-serif;
+  width: 1000px;
+  height: 330px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+
+}
+.form-container-Valoracion {
+  margin-top: 10px;
+  margin-right: 50px;
+  margin-left: 50px;
+  background-color: #ffffff;
+  font-family: 'IBM Plex Sans', sans-serif;
+  width: 1050px;
+  height: 200px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+
+}
+
+.estilo-true {
+  margin-bottom: 10px;
+}
+
+.estilo-false {
+  margin-bottom: 170px;
+}
+
+
+.form-container-Perfil {
+  display: flex;
+  margin-top: 10px; /* Margen de 30px desde la barra de navegación */
+  margin-right: 50px;
+  margin-left: 50px;
+  background-color: #ffffff; /* Color de fondo del formulario */
+  padding: 30px; /* Espacio interno del formulario */
+  font-family: 'IBM Plex Sans', sans-serif;
+  width: 1000px;
+  height: 420px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  margin-bottom: 90px;
+}
+
+
+.form-left-Valoracion {
+  margin-top: 20px;
+  margin-left: 15px;
+  width:500px;
+  padding-right: 10px; /* Espaciado a la derecha de la parte izquierda */
+}
+.form-left-Perfil {
+  flex: 1; /* Ocupa el espacio disponible */
+  padding-right: 50px; /* Espaciado a la derecha de la parte izquierda */
+
+
+}
+
+
+/* Estilo para la parte derecha del formulario */
+.form-right-Valoracion {
+
+  margin-top:-80px;
+  flex-direction: column;
+  margin-left:700px;
+}
+
+
+.form-right-Perfil img {
+  max-width: 100%; /* Ajusta el tamaño máximo de la imagen para adaptarse al contenedor */
+  width: 250px;
+  height: auto;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.form-separator-Perfil {
+  width: 5px; /* Ancho de la barra de separación */
+  background-color: #79ed83; /* Color verde para la barra de separación */
+  margin: 0 200px; /* Espaciado a izquierda y derecha de la barra de separación */
+  border-radius: 10px; /* Agrega bordes redondeados de 10px */
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* Agrega una sombra suave */
+  height: 300px;
+  margin-left: -2px;
+
+}
+.form-center-Perfil{
+  flex: 1; /* Ocupa el espacio disponible */
+  padding-left: 10px; /* Espaciado a la izquierda de la parte derecha */
+  display: flex;
+  flex-direction: column;
+  margin-left:-180px;
+  margin-right: 20px;
+}
+
+/* Estilo para la parte izquierda del formulario */
+.form-left {
+  flex: 1; /* Ocupa el espacio disponible */
+  padding-right: 20px; /* Espaciado a la derecha de la parte izquierda */
+  margin-right: -100px;
+}
+
+/* Estilo para la parte derecha del formulario */
+.form-center {
+  flex: 1; /* Ocupa el espacio disponible */
+  padding-left: 10px; /* Espaciado a la izquierda de la parte derecha */
+  display: flex;
+  flex-direction: column;
+  margin-left: -90px;
+  margin-right: 20px;
+}
+
+/* Estilo para la barra de separación */
+.form-separator {
+  width: 5px; /* Ancho de la barra de separación */
+  background-color: #79ed83; /* Color verde para la barra de separación */
+  margin: 0 200px; /* Espaciado a izquierda y derecha de la barra de separación */
+  border-radius: 10px; /* Agrega bordes redondeados de 10px */
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* Agrega una sombra suave */
+  height: 270px;
+}
+
+
+
+/* Estilo para el contenedor de los botones */
+.form-button {
+  position: relative;
+  text-align: right; /* Alinea los botones a la derecha */
+}
+
+
+
+/* Estilo adicional para el contenedor de los botones para la posición absoluta */
+.form-button.absolute {
+  position: absolute;
+  bottom: 20px; /* Distancia desde la parte inferior */
+  right: 30px; /* Distancia desde la derecha */
+}
+
+.form-button-saveValoracion{
+  position: absolute;
+  bottom: 50%; /* Centra verticalmente en la parte inferior */
+  left: 50%; /* Centra horizontalmente */
+  transform: translate(-50%, 50%); /* Ajusta la posición para centrar correctamente */
+}
+
+

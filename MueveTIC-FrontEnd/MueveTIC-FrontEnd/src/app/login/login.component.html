@@ -1,0 +1,58 @@
+<div class="app-container">
+  <div class="navbar">
+    <div class="left-content">
+      <img src="assets/logo.png" alt="">
+      <span>Mueve <span class="TIC">TIC</span></span>
+    </div>
+  </div>
+
+  <section>
+    <div class="left-side">
+      <h1><span class="conecta"> Conecta tu movilidad </span> al futuro</h1>
+      <p>Mueve TIC te guía hacia un futuro <span class="negro">sostenible</span> con vehículos eléctricos, conectando la
+        <span class="negro">movilidad</span> con la protección del medio ambiente y tu <span
+          class="negro">comodidad.</span><br> Únete al futuro de la movilidad limpia hoy mismo.</p>
+    </div>
+    <div class="right-side" *ngIf="!registered">
+      <div class="form-box">
+        <form action="">
+          <h2>Iniciar Sesión en Mueve Tic</h2>
+          <div class="inputbox">
+            <input type="text" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" required>
+            <label for="">Usuario</label>
+          </div>
+          <div class="inputbox">
+            <input type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" required>
+            <label for="">Contraseña</label>
+          </div>
+          <div class="forgotpwd">
+            <h4><a routerLink="/forgot-password">¿Olvidaste tu contraseña?</a></h4>
+          </div>
+          <button (click)="login()"><a routerLink="/admin"></a>Iniciar Sesión</button>
+          <div class="register">
+          </div>
+        </form>
+      </div>
+      <div class="form-box2">
+        <h3>¿No tienes cuenta? <a routerLink="/register">Regístrate</a></h3>
+      </div>
+    </div>
+    <div class="right-side" *ngIf="registered">
+      <div class="form-box-registered">
+        <h2>Segundo Factor de Autenticación</h2>
+        <div class="inputbox">
+          <input type="text" id="validationCode" name="validationCode" [(ngModel)]="otpCode" required [ngModelOptions]="{standalone: true}">
+          <label for="validationCode">Introduce los 6 dígitos generados por la App Google Authenticator</label>
+        </div>
+        <button type="button" (click)="verifyTfa()" [class.button-disabled]="otpCode.length < 6">Verificar Código</button>
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+</div>
+
+

@@ -1,0 +1,392 @@
+<div class="barra-navegacion">
+  <nav>
+    <a (click)="changeMenu('home')"> <img src="assets/logo.png" alt="" class="app_logo"></a>
+    <span (click)="changeMenu('home')" class="Mueve">Mueve <span class="TIC">TIC</span></span>
+    <ul class="menu">
+      <li><a (click)="changeMenu('reservar')" [class.active]="menu === 'reservar'">Reservar Vehículos</a></li>
+      <li><a (click)="changeMenu('reserva_activa')" [class.active]="menu === 'reserva_activa'">Reserva Activa</a></li>
+      <li><a (click)="changeMenu('historial')" [class.active]="menu === 'historial'">Historial Reservas</a></li>
+      <li><a (click)="changeMenu('perfil')" [class.active]="menu === 'perfil'">Perfil</a></li>
+    </ul>
+  </nav>
+  <label class="perfil-userName">{{ getNameUser(email) }}</label>
+  <div class="perfil">
+
+    <img src="assets/perfil_icon.png" class="icon-perfil" alt="">
+    <ul class="desplegable-perfil">
+      <li><a (click)="logout()"><img src="assets/log_out.png" alt="" class="icon-menu">Cerrar Sesión</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- OPCION MENU HOME -->
+<div class="app-container-home" *ngIf="menu === 'home' ">
+  <section class="container-home">
+    <h1 class="h1-home">¡Bienvenido a MueveTIC!</h1>
+    <div class="section-derecha">
+      <div class="text">
+        <h2 class="h2-derecha">Alquila vehículos eléctricos en Ciudad Real - MueveTIC</h2>
+        <p>Desplázate de forma <span class="palabra-clave">sostenible</span> y disfruta de la <span
+            class="palabra-clave">movilidad urbana</span> con Mueve <span class="palabra-clave">TIC</span>.</p>
+      </div>
+      <!-- sonarlint-disable-next-line web:S4084 -->
+      <video class="video-coche" loop muted autoplay oncanplay="this.play()" onloadedmetadata="this.muted = true">
+        <source src="assets/videoCoche.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="section-izquierda">
+      <div class="image-izquierda">
+        <img src="assets/reloj.png" alt="Imagen 2">
+      </div>
+
+      <div class="text">
+        <h2 class="h2-izquierda">Alquila un vehículo en minutos</h2>
+        <p>Con MueveTIC puedes alquilar un vehículo en <span class="palabra-clave-izq">minutos</span> No te preocupes
+          por los detalles técnicos y concéntrate en disfrutar de tu experiencia de <span
+            class="palabra-clave-izq">movilidad </span>urbana<span class="palabra-clave-izq"> sostenible.</span> </p>
+      </div>
+    </div>
+
+    <div class="section-derecha">
+      <div class="text">
+        <h2 class="h2-derecha">Da tu opinión y valora los servicios</h2>
+        <p>Puedes dar tu <span class="palabra-clave">opinión </span>y valorar los servicios de MueveTIC. Ayúdanos a
+          <span class="palabra-clave">mejorar</span> y ofrecerte la mejor experiencia posible.</p>
+      </div>
+      <div class="image-derecha">
+        <video class="video-puntuacion" loop muted autoplay oncanplay="this.play()"
+          onloadedmetadata="this.muted = true">
+          <source src="assets/gifPuntuacion.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <div class="section-izquierda">
+      <div class="image-izquierda">
+        <img src="assets/duda.png" alt="Imagen 2">
+      </div>
+      <div class="text">
+        <h2 class="h2-izquierda">¿Por qué elegirnos?</h2>
+        <p>MueveTIC,combina<span class="palabra-clave"> innovación</span> y <span
+            class="palabra-clave">sostenibilidad</span> para ofrecer una experiencia de transporte avanzada. Contribuye
+          a un entorno más saludable y sostenible eligiendo nuestra empresa, la <span class="palabra-clave">única</span>
+          comprometida con la reducción de las emisiones de los vehículos.</p>
+      </div>
+    </div>
+  </section>
+</div>
+<!-- OPCION MENU RESERVA ACTIVA -->
+<div class="app-container" *ngIf="menu === 'reserva_activa'">
+
+  <div class="horizontal-line-ReservaActiva">
+    <div class="short-divider"></div>
+    <span class="line-text"> Información</span>
+    <div class="long-divider-ReservaActiva"></div>
+  </div>
+
+  <div class="form-container"  [ngClass]="{'estilo-true': mostrarFormValoracion, 'estilo-false': !mostrarFormValoracion}">
+    <div class="form-left">
+      <label for="matricula">Matricula</label>
+      <input class="input-formularios" type="text" id="matricula" name="matricula" [(ngModel)]="matricula" readonly>
+      <label for="Modelo">Modelo</label>
+      <input class="input-formularios" type="text" id="Modelo" name="Modelo" [(ngModel)]="modelo" readonly>
+    </div>
+    <div class="form-separator"></div>
+    <div class="form-center">
+      <label for="Estado">Estado</label>
+      <input class="input-formularios" type="text" id="Estado" name="Estado" [(ngModel)]="estado" readonly>
+      <label for="Fecha">Fecha</label>
+      <input class="input-formularios" type="text" id="Fecha" name="Fecha" [(ngModel)]="fechaReserva" readonly>
+    </div>
+
+    <div class="form-button absolute">
+      <button class="button-volver" (click)="back()"><img src="assets/volver_boton.png" alt="Volver"></button>
+      <button class="button-save" (click)="saveReserva()"> <img src="assets/finalizar_reserva_boton.png"
+          alt="Finalizar Reserva"> </button>
+      <button class="button-cancelar" (click)="anularReserva()">
+        <img src="assets/anular_reserva_boton.png" alt="Anular Reserva">
+      </button>
+    </div>
+
+  </div>
+
+  <div class="horizontal-line-valoracion"  *ngIf="mostrarFormValoracion">
+    <div class="short-divider-valoracion"></div>
+    <span class="line-text-valoracion">Valorar</span>
+    <div class="long-divider-valoracion"></div>
+  </div>
+  <div class="form-container-Valoracion"  *ngIf="mostrarFormValoracion" [ngClass]="{'estilo-true': mostrarFormValoracion, 'estilo-false': !mostrarFormValoracion}">
+    <div class="form-left-Valoracion">
+      <div>
+        <label for="comentario">Comentario</label>
+        <input class="input-formularios" type="text" id="comentario" name="comentario" [(ngModel)]="comentario"
+          [matTooltip]="tooltipText" (input)="updateTooltip()">
+      </div>
+    </div>
+    <div class="form-right-Valoracion">
+      <label for="">Puntuación *</label>
+      <br>
+      <ngb-rating [max]="5" [(rate)]="puntuacionReservaActiva">
+        <ng-template let-fill="fill" let-index="index">
+          <span class="star" [ngClass]="obtenerClaseEstrella(index)" (click)="puntuacion = index + 1">&#9733;</span>
+        </ng-template>
+      </ngb-rating>
+    </div>
+
+    <div class="form-button absolute">
+      <button class="button-saveValoracion" (click)="confirmReserva()"> <img src="assets/guardar_valoracion_boton.png"
+          alt="Guardar Valoracion ">
+      </button>
+    </div>
+
+  </div>
+
+</div>
+<!-- OPCION MENU PERFIL -->
+ <div class="app-container"  *ngIf="menu === 'perfil'">
+
+  <div class="horizontal-line">
+    <div class="short-divider"></div>
+    <span class="line-text">Perfil</span>
+    <div class="long-divider-Perfil"></div>
+  </div>
+  <div class="form-container-Perfil">
+    <div class="form-left-Perfil">
+      <label for="Nombre">Nombre</label>
+      <input class="input-formularios" type="text" id="Nombre" name="Nombre" [(ngModel)]="nombre">
+      <label for="apellidos">Apellidos</label>
+      <input class="input-formularios" type="text" id="Apellidos" name="Apellidos" [(ngModel)]="apellidos">
+      <label for="correo">Correo Electrónico</label>
+      <input class="input-formularios" type="text" id="correo" name="correo" [(ngModel)]="correo" readonly>
+      <label for="fechaNacimiento">Fecha de Nacimiento</label>
+      <div class=container-fecha>
+        <select class="input-fecha" [(ngModel)]="selectedDay" [ngModelOptions]="{ standalone: true }" required>
+          <option *ngFor="let day of days" [value]="day">{{ day }}</option>
+        </select>
+        <select class="input-fecha" [(ngModel)]="selectedMonth" [ngModelOptions]="{ standalone: true }" required>
+          <option *ngFor="let month of months" [value]="month">{{ month }}</option>
+        </select>
+        <select class="input-fecha" [(ngModel)]="selectedYear" [ngModelOptions]="{ standalone: true }" required>
+          <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-separator-Perfil"></div>
+    <div class="form-center-Perfil">
+      <label for="DNI">DNI</label>
+      <input class="input-formularios" type="text" id="DNI" name="DNI" [(ngModel)]="dni">
+
+      <label for="movil">Móvil</label>
+      <input class="input-formularios" type="text" id="movil" name="movil" [(ngModel)]="movil">
+
+      <label for="contrasena">Contraseña</label>
+      <input class="input-formularios" type="password" id="contrasena" name="contrasena" [(ngModel)]="contrasenaLeida">
+
+      <label for="carnet">Carnet</label>
+      <select class="input-formularios" [(ngModel)]="carne" [ngModelOptions]="{standalone: true}" required>
+        <option value="B">B</option>
+        <option value="A1">A1</option>
+        <option value="A2">A2</option>
+      </select>
+    </div>
+
+    <div class="form-right-Perfil">
+      <img src="assets\iconoRol.png" alt="Imagen">
+    </div>
+
+    <div class="form-button absolute">
+      <button class="button-volver" (click)="back()"><img src="assets/volver_boton.png" alt="Volver"></button>
+      <button class="button-save" (click)="updatePerfil()"> <img src="assets/guardar_boton.png" alt="guardar"></button>
+      <button class="button-cancelar" (click)="deleteAccount()"> <img src="assets/eliminar_cuenta_boton.png"
+          alt="eliminar"></button>
+    </div>
+  </div>
+
+</div>
+
+<!-- OPCION  MENU HISTORIAL -->
+<section *ngIf="menu === 'historial'">
+  <div class="line-container">
+    <div class="line-small"></div>
+    <div class="text-list">Historial Reservas</div>
+    <div class="line"></div>
+  </div>
+  <div class="tabla-scroll_reservas">
+    <table class="lists">
+        <caption></caption>
+        <th></th>
+        <tbody>
+
+            <tr *ngFor="let booking of booking_list; let i=index" >
+                <td *ngIf="booking.state === 2"><img src="assets/reserva_icon.png" class="icon-person" alt=""></td>
+                <td *ngIf="booking.state === 2" >{{booking.vehicle.model}}</td>
+                <td *ngIf="booking.state === 2" >{{booking.vehicle.licensePlate}}</td>
+                <td *ngIf="booking.state === 2 && booking.vehicle.type ==='car'" >Coche</td>
+                <td *ngIf="booking.state === 2 && booking.vehicle.type ==='motorcycle'" >Moto</td>
+                <td *ngIf="booking.state === 2 && booking.vehicle.type ==='scooter'" >Patinete</td>
+                <td *ngIf="booking.state === 2" >{{booking.date}}</td>
+                <td *ngIf="booking.state === 2">{{booking.statechange}}</td>
+
+                <td *ngIf="booking.state === 0" style="background-color: #f3f3f3;"><img src="assets/reserva-cancelada_boton.png" style="width: 45px; height: 45px;" class="icon-person" alt=""></td>
+                <td *ngIf="booking.state === 0" style="background-color: #f3f3f3;">{{booking.vehicle.model}}</td>
+                <td *ngIf="booking.state === 0" style="background-color: #f3f3f3;" >{{booking.vehicle.licensePlate}}</td>
+                <td *ngIf="booking.state === 0 && booking.vehicle.type  ==='car'" style="background-color: #f3f3f3;">Coche</td>
+                <td *ngIf="booking.state === 0 && booking.vehicle.type ==='motorcycle'" style="background-color: #f3f3f3;" >Moto</td>
+                <td *ngIf="booking.state === 0 && booking.vehicle.type ==='scooter'" style="background-color: #f3f3f3;" >Patinete</td>
+                <td *ngIf="booking.state === 0" style="background-color: #f3f3f3;"> {{booking.date}} </td>
+                <td *ngIf="booking.state === 0" style="background-color: #f3f3f3;"> {{booking.statechange}} </td>
+
+            </tr>
+
+        </tbody>
+    </table>
+  </div>
+</section>
+
+
+
+  <!-- OPCION MENU RESERVAR -->
+  <section *ngIf="menu === 'reservar'">
+    <div class="line-container">
+      <div class="line-small"></div>
+      <div class="text-list">Reservar Vehículo</div>
+      <div class="line"></div>
+    </div>
+    <p class="p-class">Para reservar un vehículo seleccione el tipo de vehículo que desee alquilar y pulse en la opción de reservarlo.</p>
+      <div class="sub-text-list">Tipo de Vehículo</div>
+
+      <div class="container">
+        <input class="filtro_input" type="radio" [(ngModel)]="filter" value="coche" name="size" id="coche">
+        <label class ="filtro_label" for="coche" >Coche</label>
+
+        <input class="filtro_input" type="radio" [(ngModel)]="filter" value="moto" name="size" id="moto">
+        <label class ="filtro_label" for="moto">Moto</label>
+
+        <input class="filtro_input" type="radio" [(ngModel)]="filter" value="patinete" name="size" id="patinete">
+        <label class ="filtro_label" for="patinete" >Patinete</label>
+    </div>
+
+      <div *ngIf="filter === 'coche'">
+        <div class="tabla-scroll">
+          <table class="lists">
+              <caption></caption>
+              <th></th>
+              <tbody>
+                  <tr *ngFor="let car of cars_list; let i=index" >
+                      <td *ngIf="count_active_booking === 0" ><img src="assets/vehiculo_icon.png" class="icon-person" alt=""></td>
+                      <td *ngIf="count_active_booking === 0">{{car.model}}</td>
+                      <td *ngIf="count_active_booking === 0" > {{car.licensePlate}}</td>
+                      <td *ngIf="count_active_booking === 0">
+                          <ngb-rating [max]="5" [(rate)]="puntuacion" >
+                            <ng-template let-fill="fill" let-index="index">
+                              <span class="star" [ngClass]="fillStars(index, car.model, ratingCar_list)" (click)="puntuacion = index + 1">&#9733;</span>
+                            </ng-template>
+                            </ngb-rating>
+                      </td>
+                      <td *ngIf="count_active_booking === 0"><img (click)="makeBooking(i, car.model, car.licensePlate)" src="assets/añadir_carga_boton.png" class="icon-reserva" alt=""></td>
+
+                      <td *ngIf="count_active_booking === 1" style="background-color: #f3f3f3;"><img src="assets/vehiculo_icon.png" class="icon-person" alt=""></td>
+                      <td *ngIf="count_active_booking === 1" style="background-color: #f3f3f3;">{{car.model}}</td>
+                      <td *ngIf="count_active_booking === 1" style="background-color: #f3f3f3;"> {{car.licensePlate}}</td>
+                      <td *ngIf="count_active_booking === 1" style="background-color: #f3f3f3;">
+                          <ngb-rating [max]="5" [(rate)]="puntuacion" >
+                            <ng-template let-fill="fill" let-index="index">
+                              <span class="star" [ngClass]="fillStars(index, car.model,ratingCar_list)" (click)="puntuacion = index + 1">&#9733;</span>
+                            </ng-template>
+                            </ngb-rating>
+                      </td>
+                      <td *ngIf="count_active_booking === 1" style="background-color: #f3f3f3; display: none;"><img (click)="makeBooking(i, car.model, car.licensePlate)" src="assets/añadir_carga_boton.png" class="icon-reserva" alt=""></td>
+
+                  </tr>
+              </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div *ngIf="filter === 'moto'">
+        <div class="tabla-scroll">
+          <table class="lists">
+              <caption></caption>
+              <th></th>
+              <tbody>
+                  <tr *ngFor="let moto of motorcycle_list; let i=index" >
+                      <td *ngIf="count_active_booking === 0"><img src="assets/vehiculo_icon.png" class="icon-person" alt=""></td>
+                      <td *ngIf="count_active_booking === 0">{{moto.model}}</td>
+                      <td *ngIf="count_active_booking === 0">{{moto.licensePlate}}</td>
+                      <td *ngIf="count_active_booking === 0">
+                          <ngb-rating [max]="5" [(rate)]="puntuacion" >
+                            <ng-template let-fill="fill" let-index="index">
+                              <span class="star" [ngClass]="fillStars(index, moto.model,ratingMoto_list)" (click)="puntuacion = index + 1">&#9733;</span>
+                            </ng-template>
+                            </ngb-rating>
+                      </td>
+                      <td *ngIf="count_active_booking === 0"><img (click)="makeBooking(i, moto.model, moto.licensePlate)" src="assets/añadir_carga_boton.png" class="icon-reserva" alt=""></td>
+
+                      <td *ngIf="count_active_booking === 1" style="background-color: #f3f3f3;"><img src="assets/vehiculo_icon.png" class="icon-person" alt=""></td>
+                      <td *ngIf="count_active_booking === 1" style="background-color: #f3f3f3;">{{moto.model}}</td>
+                      <td *ngIf="count_active_booking === 1" style="background-color: #f3f3f3;"> {{moto.licensePlate}}</td>
+                      <td *ngIf="count_active_booking === 1" style="background-color: #f3f3f3;">
+                          <ngb-rating [max]="5" [(rate)]="puntuacion" >
+                            <ng-template let-fill="fill" let-index="index">
+                              <span class="star" [ngClass]="fillStars(index, moto.model, ratingMoto_list)" (click)="puntuacion = index + 1">&#9733;</span>
+                            </ng-template>
+                            </ngb-rating>
+                      </td>
+                      <td *ngIf="count_active_booking === 1" style="background-color: #f3f3f3; display: none;"><img (click)="makeBooking(i, moto.model, moto.licensePlate)" src="assets/añadir_carga_boton.png" class="icon-reserva" alt=""></td>
+
+                  </tr>
+              </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div *ngIf="filter === 'patinete'">
+        <div class="tabla-scroll">
+          <table class="lists">
+              <caption></caption>
+              <th></th>
+              <tbody>
+                  <tr *ngFor="let scooter of scooters_list; let i=index" >
+                      <td *ngIf="count_active_booking === 0"><img src="assets/vehiculo_icon.png" class="icon-person" alt=""></td>
+                      <td *ngIf="count_active_booking === 0">{{scooter.model}}</td>
+                      <td *ngIf="count_active_booking === 0"> {{scooter.licensePlate}}</td>
+                      <td *ngIf="count_active_booking === 0">
+                          <ngb-rating [max]="5" [(rate)]="puntuacion" >
+                            <ng-template let-fill="fill" let-index="index">
+                              <span class="star" [ngClass]="fillStars(index, scooter.model,ratingScooter_list)" (click)="puntuacion = index + 1">&#9733;</span>
+                            </ng-template>
+                            </ngb-rating>
+                      </td>
+                      <td *ngIf="count_active_booking === 0"><img (click)="makeBooking(i, scooter.model,scooter.licensePlate)" src="assets/añadir_carga_boton.png" class="icon-reserva" alt=""></td>
+
+                      <td *ngIf="count_active_booking === 1" style="background-color: #f3f3f3;"><img src="assets/vehiculo_icon.png" class="icon-person" alt=""></td>
+                      <td *ngIf="count_active_booking === 1" style="background-color: #f3f3f3;">{{scooter.model}}</td>
+                      <td *ngIf="count_active_booking === 1" style="background-color: #f3f3f3;"> {{scooter.licensePlate}}</td>
+                      <td *ngIf="count_active_booking === 1" style="background-color: #f3f3f3;">
+                          <ngb-rating [max]="5" [(rate)]="puntuacion" >
+                            <ng-template let-fill="fill" let-index="index">
+                              <span class="star" [ngClass]="fillStars(index,scooter.model,ratingScooter_list)" (click)="puntuacion = index + 1">&#9733;</span>
+                            </ng-template>
+                            </ngb-rating>
+                      </td>
+                      <td *ngIf="count_active_booking === 1" style="background-color: #f3f3f3; display: none;"><img (click)="makeBooking(i, scooter.model, scooter.licensePlate)" src="assets/añadir_carga_boton.png" class="icon-reserva" alt=""></td>
+
+                  </tr>
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+

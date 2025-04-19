@@ -1,0 +1,36 @@
+# Node.js with Angular
+# Build a Node.js project that uses Angular.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+
+trigger:
+- develop-AlejandroSan
+ 
+pool:
+  vmImage: ubuntu-latest
+  name: Default
+  demands:
+  - agent.name -equals CALSOFTFRONT
+ 
+stages:
+- stage: Preparation
+  jobs:
+  - job: PreparationJob
+    steps:
+    - script: echo Preparation!
+ 
+- stage: Build
+  jobs:
+  - job: BuildJob
+    steps:
+    - checkout: none
+    - script: echo Building!
+ 
+- stage: Sonarqube
+  jobs:
+  - job: SonarqubeJob
+    steps:
+    - checkout: none
+    - script: sonar-scanner.bat -D"sonar.projectKey=ProyectoIntegrado_Frontend" -D"sonar.sources=." -D"sonar.host.url=http://localhost:9000" -D"sonar.token=$(SQ_TOKEN)"
+    - script: echo Sonarqube ok!

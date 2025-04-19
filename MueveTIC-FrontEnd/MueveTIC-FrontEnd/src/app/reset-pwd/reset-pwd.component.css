@@ -1,0 +1,137 @@
+.app-container {
+  background-color: #f0f0f0e0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 720px;
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+/*Barra de navegación*/
+
+.navbar {
+  background-color: #ffffff;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  height: 45px;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 30px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.left-content {
+  display: flex;
+  align-items: center;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 700;
+}
+
+.left-content i {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.left-content img {
+  width: 40px;
+  height: auto;
+  margin-right: 10px;
+}
+
+
+
+.form-box1 {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  height: auto;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 170px;
+}
+.h1{
+  font-size: 30px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.h2{
+  font-size: 15px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 700;
+  color: #5d5c5c;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+
+.inputbox {
+  position: relative;
+  margin: 60px 0;
+  width: 310px;
+  border-bottom: 2px solid #79ed83;
+  left:35px;
+}
+
+
+/* Estilo para etiquetas de inputs y selects */
+.inputbox label {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-10%);
+  font-size: 1em;
+  pointer-events: none;
+  transition: 0.5s;
+  font-family: 'IBM Plex Sans', sans-serif;
+  color: #000000;
+}
+
+input:focus ~ label,
+input:valid ~ label,
+select:focus ~ label,
+select:valid ~ label {
+  top: -5px;
+  color: #000000;
+}
+
+.inputbox input {
+  width: 100%;
+  height: 50px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 1em;
+  padding: 0 35px 0 5px;
+  color: #000000;
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+button {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 20px;
+  background-color: #79ed83;
+  color: #000000;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  height: 40px;
+}

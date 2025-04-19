@@ -1,0 +1,1434 @@
+<div class="barra-navegacion">
+  <nav>
+      <a > <img src="assets/logo.png" alt="" class="app_logo"></a>
+      <span  class="Mueve">Mueve <span class="TIC">TIC</span></span>
+      <ul class="menu">
+        <li>
+          <a>Gestión de Cuentas</a>
+          <ul class="desplegable">
+            <li class="opcion"><a (click)="changeRole('ROLE_ADMIN')">Administradores</a></li>
+            <li class="opcion"><a (click)="changeRole('ROLE_USER')">Usuarios</a></li>
+            <li class="opcion"><a (click)="changeRole('ROLE_MANTENANCE')">Personal de Mantenimiento</a></li>
+          </ul>
+        </li>
+        <li><a (click)="changeMenu('gestion_vehiculo')" [class.active]="menu === 'gestion_vehiculo'">Gestión Vehículos</a>
+        <li><a>Gestión Reservas</a>
+          <ul class="desplegable" style="height: 98px;">
+            <li class="opcion"><a (click)="changeMenu('gestion_reservas_usuario')">Reservas por Usuario</a></li>
+            <li class="opcion"><a (click)="changeMenu('gestion_reservas_vehiculo')">Reservas por Vehículo</a></li>
+          </ul>
+        <li><a (click)="changeMenu('facturacion')" [class.active]="menu === 'facturacion'">Facturación</a>
+      </ul>
+  </nav>
+  <label class="perfil-userName">{{ getNameUser(emailUser) }}</label>
+  <div class="perfil">
+  <img  src="assets/perfil_icon.png" class="icon-perfil" alt="">
+  <ul class="desplegable-perfil">
+    <li><a (click)="changeMenu('configuracion')"> <img src="assets/setting_icon.png" alt="" class="icon-menu">Configuración</a></li>
+    <li><a (click)="logout()"><img src="assets/log_out.png" alt=""  class="icon-menu">Cerrar Sesión</a></li>
+  </ul>
+  </div>
+</div>
+
+<section *ngIf="showList && currentRole==='ROLE_ADMIN'">
+  <div class="line-container">
+      <div class="line-small"></div>
+      <div class="text-list">Lista de Administradores</div>
+      <div class="line"></div>
+  </div>
+
+  <div class="tabla-scroll">
+      <table class="lists">
+          <caption></caption>
+          <th></th>
+          <tbody>
+              <tr *ngFor="let admin of lista_admin; let i=index" >
+                  <td *ngIf="admin.validation === 1"><img src="assets/person_logo.png" class="icon-person" alt=""></td>
+                  <td *ngIf="admin.validation === 1">{{admin.name}}</td>
+                  <td *ngIf="admin.validation === 1"> {{admin.surname}}</td>
+                  <td *ngIf="admin.validation === 1"><img (click)="changeCRUD('Consultar',i, admin.email)" [class.active]="action === 'Consultar'" src="assets/view.png" class="icon-button" alt=""></td>
+                  <td *ngIf="admin.validation === 1"><img (click)="changeCRUD('modificar',i, admin.email)" [class.active]="action === 'modificar'" src="assets/edit.png" class="icon-button" alt=""></td>
+                  <td *ngIf="admin.validation === 1"><img (click)="deleteAdmin(i, admin.email)" src="assets/delete.png" class="icon-button" alt=""></td>
+                  <td *ngIf="admin.validation === 1" style="background-color: white; margin-left: 50px;"><img src="assets/reservar_vehiculo_boton.png" style="display: none;" class="icon-active" alt=""></td>
+                  <td *ngIf="admin.validation === 0" style="background-color: #f3f3f3; width:5%"><img src="assets/person_logo_cancel.png" style="width: 48px; height: 48px;" class="icon-active" alt=""></td>
+                  <td *ngIf="admin.validation === 0" style="background-color: #f3f3f3;">{{admin.name}}</td>
+                  <td *ngIf="admin.validation === 0" style="background-color: #f3f3f3;"> {{admin.surname}} </td>
+                  <td *ngIf="admin.validation === 0" style="background-color: #f3f3f3;"><img src="assets/view.png" style="display: none;" class="icon-button" alt=""></td>
+                  <td *ngIf="admin.validation === 0" style="background-color: #f3f3f3;"><img src="assets/edit.png" style="display: none;" class="icon-button" alt=""></td>
+                  <td *ngIf="admin.validation === 0" style="background-color: #f3f3f3;"><img src="assets/delete.png" style="display: none;" class="icon-button" alt=""></td>
+                  <td *ngIf="admin.validation === 0" style="background-color: #f3f3f3;"><img (click)="activateAdmin(i, admin.email)" src="assets/reservar_vehiculo_boton.png" class="icon-active" alt=""></td>
+
+              </tr>
+          </tbody>
+      </table>
+  </div>
+
+  <div>
+    <img (click)="changeCRUD('añadir', 0, '')"  src="assets/añadir_boton.png" class="button-add-center" alt=""[class.active]="action === 'añadir'"/>
+  </div>
+</section>
+
+
+
+<section *ngIf="showList && currentRole==='ROLE_MANTENANCE'">
+  <div class="line-container">
+      <div class="line-small"></div>
+      <div class="text-list">Lista del Personal de Mantenimiento</div>
+      <div class="line"></div>
+  </div>
+
+  <div class="tabla-scroll">
+      <table class="lists">
+          <caption></caption>
+          <th></th>
+          <tbody>
+              <tr *ngFor="let personal of lista_personal, let j=index">
+                  <td *ngIf="personal.validation === 1"><img src="assets/person_logo.png" class="icon-person" alt=""></td>
+                  <td *ngIf="personal.validation === 1">{{personal.name}}</td>
+                  <td *ngIf="personal.validation === 1"> {{personal.surname}}</td>
+                  <td *ngIf="personal.validation === 1"> <img (click)="changeCRUD('Consultar',j, personal.email)" src="assets/view.png" class="icon-button" alt=""></td>
+                  <td *ngIf="personal.validation === 1"><img (click)="changeCRUD('modificar',j, personal.email)" src="assets/edit.png" class="icon-button" alt=""></td>
+                  <td *ngIf="personal.validation === 1"><img (click)="deletePersonal(j, personal.email)" src="assets/delete.png" class="icon-button" alt=""></td>
+                  <td *ngIf="personal.validation === 1" style="background-color: white; margin-left: 50px;"><img src="assets/reservar_vehiculo_boton.png" style="display: none;" class="icon-active" alt=""></td>
+                  <td *ngIf="personal.validation === 0" style="background-color: #f3f3f3; width:5%"><img src="assets/person_logo_cancel.png" style="width: 48px; height: 48px;" class="icon-person" alt=""></td>
+                  <td *ngIf="personal.validation === 0" style="background-color: #f3f3f3;">{{personal.name}}</td>
+                  <td *ngIf="personal.validation === 0" style="background-color: #f3f3f3;"> {{personal.surname}} </td>
+                  <td *ngIf="personal.validation === 0" style="background-color: #f3f3f3;"><img src="assets/view.png" style="display: none;" class="icon-button" alt=""></td>
+                  <td *ngIf="personal.validation === 0" style="background-color: #f3f3f3;"><img src="assets/edit.png" style="display: none;" class="icon-button" alt=""></td>
+                  <td *ngIf="personal.validation === 0" style="background-color: #f3f3f3;"><img src="assets/delete.png" style="display: none;" class="icon-button" alt=""></td>
+                  <td *ngIf="personal.validation === 0" style="background-color: #f3f3f3;"><img (click)="activatePersonal(j, personal.email)" src="assets/reservar_vehiculo_boton.png" class="icon-active" alt=""></td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+
+  <div>
+    <img (click)="changeCRUD('añadir', 0, '')"  src="assets/añadir_boton.png" class="button-add-center" alt=""[class.active]="action === 'añadir'"/>
+  </div>
+</section>
+
+
+<section *ngIf="showList && currentRole==='ROLE_USER'">
+<div class="line-container">
+  <div class="line-small"></div>
+  <div class="text-list">Lista de Usuarios</div>
+  <div class="line"></div>
+</div>
+
+  <div class="tabla-scroll">
+      <table class="lists">
+          <caption></caption>
+          <th></th>
+          <tbody>
+              <tr *ngFor="let user of lista_user, let a=index">
+                  <td *ngIf="user.validation === 1"><img src="assets/person_logo.png" class="icon-person" alt=""></td>
+                  <td *ngIf="user.validation === 1">{{user.name}}</td>
+                  <td *ngIf="user.validation === 1"> {{user.surname}}</td>
+                  <td *ngIf="user.validation === 1"><img (click)="changeCRUD('Consultar',a, user.email)"src="assets/view.png" class="icon-button" alt=""></td>
+                  <td *ngIf="user.validation === 1"><img (click)="changeCRUD('modificar',a, user.email)" src="assets/edit.png" class="icon-button" alt=""></td>
+                  <td *ngIf="user.validation === 1"><img (click)="deleteUser(a,user.email)" src="assets/delete.png" class="icon-button" alt=""></td>
+                  <td *ngIf="user.validation === 1" style="background-color: white; margin-left: 50px;"><img src="assets/reservar_vehiculo_boton.png" style="display: none;" class="icon-active" alt=""></td>
+                  <td *ngIf="user.validation === 0" style="background-color: #f3f3f3;width:5%"><img src="assets/person_logo_cancel.png" style="width: 48px; height: 48px;" class="icon-person" alt=""></td>
+                  <td *ngIf="user.validation === 0" style="background-color: #f3f3f3;">{{user.name}}</td>
+                  <td *ngIf="user.validation === 0" style="background-color: #f3f3f3;"> {{user.surname}} </td>
+                  <td *ngIf="user.validation === 0" style="background-color: #f3f3f3;"><img src="assets/view.png" style="display: none;" class="icon-button" alt=""></td>
+                  <td *ngIf="user.validation === 0" style="background-color: #f3f3f3;"><img src="assets/edit.png" style="display: none;" class="icon-button" alt=""></td>
+                  <td *ngIf="user.validation === 0" style="background-color: #f3f3f3;"><img src="assets/delete.png" style="display: none;" class="icon-button" alt=""></td>
+                  <td *ngIf="user.validation === 0" style="background-color: #f3f3f3;"><img (click)="activateUser(a, user.email)" src="assets/reservar_vehiculo_boton.png" class="icon-active" alt=""></td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+</section>
+
+<!-- HOME -->
+
+<!-- GESTION DE VEHICULOS -->
+
+<section *ngIf="menu === 'gestion_vehiculo'">
+<div class="line-container">
+  <div class="line-small"></div>
+  <div class="text-list">Tipos de Vehículos</div>
+  <div class="line"></div>
+</div>
+<div class="tabla-scroll">
+  <table class="lists">
+      <caption></caption>
+      <th></th>
+      <tbody>
+          <tr *ngFor="let vehicle of vehicletype_list; let i=index" >
+              <td style="width: 6.5%;"><img src="assets/vehiculo_icon.png" class="icon-person" alt=""></td>
+              <td *ngIf="vehicle.type  ==='car'" style="width: 75%;" >Coches</td>
+              <td *ngIf="vehicle.type  ==='motorcycle'" style="width: 75%;" >Motos</td>
+              <td *ngIf="vehicle.type  ==='scooter'" style="width: 75%;" >Patinetes</td>
+              <td *ngIf="vehicle.type  !=='car' && vehicle.type  !=='motorcycle' && vehicle.type  !=='scooter'" style="width: 75%;" >{{vehicle.type}}</td>
+              <td *ngIf="vehicle.type  !=='car' && vehicle.type  !=='motorcycle' && vehicle.type  !=='scooter'" style="width: 10%;" ><img (click)="changeMenu(vehicle.type)" src="assets/view.png" class="icon-button" alt="" style="display: none;"></td>
+              <td *ngIf="vehicle.type  ==='car' || vehicle.type  ==='motorcycle' || vehicle.type  ==='scooter'" style="width: 10%;"><img (click)="changeMenu(vehicle.type)" src="assets/view.png" class="icon-button" alt=""></td>
+              <td style="width: 10%;"><img (click)="deleteTypeVehicle(vehicle.type)" src="assets/cancelar_carga_boton.png" class="icon-reserva" alt=""></td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+<div>
+  <img (click)="addTypeVehicle()"  src="assets/añadir_boton.png" class="button-add-center" alt=""/>
+</div>
+</section>
+
+<section *ngIf="menu === 'car'">
+<div class="line-container">
+  <div class="line-small"></div>
+  <div class="text-list">Lista de Coches</div>
+  <div class="line"></div>
+</div>
+<div class="tabla-scroll">
+  <table class="lists">
+      <caption></caption>
+      <th></th>
+      <tbody>
+          <tr *ngFor="let car of cars_list; let i=index" >
+              <td *ngIf="car.vehicle.deactivated === false"><img src="assets/vehiculo_icon.png" class="icon-person" alt=""></td>
+              <td *ngIf="car.vehicle.deactivated === false">{{car.vehicle.model}}</td>
+              <td *ngIf="car.vehicle.deactivated === false" style="width:40%;"> {{car.vehicle.licensePlate}}</td>
+              <td *ngIf="car.vehicle.deactivated === false">
+                  <ngb-rating [max]="5" [(rate)]="puntuacion" >
+                    <ng-template let-fill="fill" let-index="index">
+                      <span class="star" [ngClass]="fillStars(index,car.rating)" (click)="puntuacion = index + 1">&#9733;</span>
+                    </ng-template>
+                    </ngb-rating>
+              </td>
+              <td *ngIf="car.vehicle.deactivated === false"><img (click)="consultVehicleCar('gestion_vehiculos_ConsultarCoche',i)" src="assets/view.png" class="icon-button" alt=""></td>
+              <td *ngIf="car.vehicle.deactivated === false"><img (click)="modifyVehicleCar('gestion_vehiculos_ModificarCoche',i)" src="assets/edit.png" class="icon-button" alt=""></td>
+              <td *ngIf="car.vehicle.deactivated === false"><img (click)="deleteVehicle(i, car.vehicle.licensePlate)" src="assets/delete.png" class="icon-button" alt=""></td>
+              <td *ngIf="car.vehicle.deactivated === false"><img (click)="activateVehicle(i, car.vehicle.licensePlate)" style="display: none;" src="assets/reservar_vehiculo_boton.png" class="icon-reserva" alt=""></td>
+
+              <td *ngIf="car.vehicle.deactivated === true" style="background-color: #f3f3f3;"><img src="assets/vehiculo_icon.png" class="icon-person" alt=""></td>
+              <td *ngIf="car.vehicle.deactivated === true" style="background-color: #f3f3f3;">{{car.vehicle.model}}</td>
+              <td *ngIf="car.vehicle.deactivated === true" style="width:40%;background-color: #f3f3f3;"> {{car.vehicle.licensePlate}}</td>
+              <td *ngIf="car.vehicle.deactivated === true" style="background-color: #f3f3f3;">
+                  <ngb-rating [max]="5" [(rate)]="puntuacion" >
+                    <ng-template let-fill="fill" let-index="index">
+                      <span class="star" [ngClass]="fillStars(index,car.rating)" (click)="puntuacion = index + 1">&#9733;</span>
+                    </ng-template>
+                    </ngb-rating>
+              </td>
+              <td *ngIf="car.vehicle.deactivated === true" style="background-color: #f3f3f3;"><img (click)="changeCRUD('Consultar',i, car.licensePlate)" style="display: none;" src="assets/view.png" class="icon-button" alt=""></td>
+              <td *ngIf="car.vehicle.deactivated === true" style="background-color: #f3f3f3;"><img (click)="changeCRUD('modificar',i, car.licensePlate)" style="display: none;" src="assets/edit.png" class="icon-button" alt=""></td>
+              <td *ngIf="car.vehicle.deactivated === true" style="background-color: #f3f3f3;"><img (click)="deleteVehicle(i, car.vehicle.licensePlate)" style="display: none;" src="assets/delete.png" class="icon-button" alt=""></td>
+              <td *ngIf="car.vehicle.deactivated === true" style="background-color: #f3f3f3;"><img (click)="activateVehicle(i, car.vehicle.licensePlate)" src="assets/reservar_vehiculo_boton.png" class="icon-reserva" alt=""></td>
+
+
+          </tr>
+      </tbody>
+  </table>
+</div>
+<div>
+  <img (click)="changeMenu('gestion_vehiculo')"  src="assets/volver_boton.png" class="button-volver" alt=""/>
+  <img (click)="addCar('gestion_vehiculos_AñadirCoche')"  src="assets/añadir_boton.png" class="button-add" alt=""/>
+</div>
+</section>
+
+<section *ngIf="menu === 'motorcycle'">
+<div class="line-container">
+  <div class="line-small"></div>
+  <div class="text-list">Lista de Motos</div>
+  <div class="line"></div>
+</div>
+<div class="tabla-scroll">
+  <table class="lists">
+      <caption></caption>
+      <th></th>
+      <tbody>
+          <tr *ngFor="let moto of motorcycle_list; let i=index" >
+              <td *ngIf="moto.vehicle.deactivated === false"><img src="assets/vehiculo_icon.png" class="icon-person" alt=""></td>
+              <td *ngIf="moto.vehicle.deactivated === false">{{moto.vehicle.model}}</td>
+              <td *ngIf="moto.vehicle.deactivated === false" style="width:40%;">{{moto.vehicle.licensePlate}}</td>
+              <td *ngIf="moto.vehicle.deactivated === false">
+                  <ngb-rating [max]="5" [(rate)]="puntuacion" >
+                    <ng-template let-fill="fill" let-index="index">
+                      <span class="star" [ngClass]="fillStars(index,moto.rating)" (click)="puntuacion = index + 1">&#9733;</span>
+                    </ng-template>
+                    </ngb-rating>
+              </td>
+              <td *ngIf="moto.vehicle.deactivated === false"> <img (click)="consultVehicleMotorcycle('gestion_vehiculos_ConsultarMoto',i)" src="assets/view.png" class="icon-button" alt=""></td>
+              <td *ngIf="moto.vehicle.deactivated === false"><img (click)="modifyVehicleMotorcycle('gestion_vehiculos_ModificarMoto',i)" src="assets/edit.png" class="icon-button" alt=""></td>
+              <td *ngIf="moto.vehicle.deactivated === false"><img (click)="deleteVehicle(i, moto.vehicle.licensePlate)" src="assets/delete.png" class="icon-button" alt=""></td>
+              <td *ngIf="moto.vehicle.deactivated === false"><img (click)="activateVehicle(i, moto.vehicle.licensePlate)" style="display: none;" src="assets/reservar_vehiculo_boton.png" class="icon-reserva" alt=""></td>
+
+              <td *ngIf="moto.vehicle.deactivated === true" style="background-color: #f3f3f3;"><img src="assets/vehiculo_icon.png" class="icon-person" alt=""></td>
+              <td *ngIf="moto.vehicle.deactivated === true" style="background-color: #f3f3f3;">{{moto.vehicle.model}}</td>
+              <td *ngIf="moto.vehicle.deactivated === true" style="width:40%;background-color: #f3f3f3;"> {{moto.vehicle.licensePlate}}</td>
+              <td *ngIf="moto.vehicle.deactivated === true" style="background-color: #f3f3f3;">
+                  <ngb-rating [max]="5" [(rate)]="puntuacion" >
+                    <ng-template let-fill="fill" let-index="index">
+                      <span class="star" [ngClass]="fillStars(index,moto.rating)" (click)="puntuacion = index + 1">&#9733;</span>
+                    </ng-template>
+                    </ngb-rating>
+              </td>
+              <td *ngIf="moto.vehicle.deactivated === true" style="background-color: #f3f3f3;"><img (click)="changeCRUD('Consultar',i, moto.licensePlate)" style="display: none;" src="assets/view.png" class="icon-button" alt=""></td>
+              <td *ngIf="moto.vehicle.deactivated === true" style="background-color: #f3f3f3;"><img (click)="changeCRUD('modificar',i, moto.licensePlate)" style="display: none;" src="assets/edit.png" class="icon-button" alt=""></td>
+              <td *ngIf="moto.vehicle.deactivated === true" style="background-color: #f3f3f3;"><img (click)="deleteVehicle(i, moto.vehicle.licensePlate)" style="display: none;" src="assets/delete.png" class="icon-button" alt=""></td>
+              <td *ngIf="moto.vehicle.deactivated === true" style="background-color: #f3f3f3;"><img (click)="activateVehicle(i, moto.vehicle.licensePlate)" src="assets/reservar_vehiculo_boton.png" class="icon-reserva" alt=""></td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+<div>
+  <img (click)="changeMenu('gestion_vehiculo')"  src="assets/volver_boton.png" class="button-volver" alt=""/>
+  <img (click)="addMotorcycle('gestion_vehiculos_AnadirMoto')"  src="assets/añadir_boton.png" class="button-add" alt=""[class.active]="action === 'añadir'"/>
+</div>
+</section>
+
+<section *ngIf="menu === 'scooter'">
+<div class="line-container">
+  <div class="line-small"></div>
+  <div class="text-list">Lista de Patinetes</div>
+  <div class="line"></div>
+</div>
+<div class="tabla-scroll">
+  <table class="lists">
+      <caption></caption>
+      <th></th>
+      <tbody>
+          <tr *ngFor="let scooter of scooters_list; let i=index" >
+            <td *ngIf="scooter.vehicle.deactivated === false"><img src="assets/vehiculo_icon.png" class="icon-person" alt=""></td>
+              <td *ngIf="scooter.vehicle.deactivated === false">{{scooter.vehicle.model}}</td>
+              <td *ngIf="scooter.vehicle.deactivated === false" style="width:40%;"> {{scooter.vehicle.licensePlate}}</td>
+              <td *ngIf="scooter.vehicle.deactivated === false">
+                  <ngb-rating [max]="5" [(rate)]="puntuacion" >
+                    <ng-template let-fill="fill" let-index="index">
+                      <span class="star" [ngClass]="fillStars(index,scooter.rating)" (click)="puntuacion = index + 1">&#9733;</span>
+                    </ng-template>
+                    </ngb-rating>
+              </td>
+              <td *ngIf="scooter.vehicle.deactivated === false"><img (click)="consultVehicleScooter('gestion_vehiculos_Consultarpatinete',i)" src="assets/view.png" class="icon-button" alt=""></td>
+              <td *ngIf="scooter.vehicle.deactivated === false"><img (click)="modifyVehicleScooter('gestion_vehiculos_Modificarpatinete',i)" src="assets/edit.png" class="icon-button" alt=""></td>
+              <td *ngIf="scooter.vehicle.deactivated === false"><img (click)="deleteVehicle(i, scooter.vehicle.licensePlate)" src="assets/delete.png" class="icon-button" alt=""></td>
+              <td *ngIf="scooter.vehicle.deactivated === false"><img (click)="activateVehicle(i, scooter.vehicle.licensePlate)" style="display: none;" src="assets/reservar_vehiculo_boton.png" class="icon-reserva" alt=""></td>
+
+              <td *ngIf="scooter.vehicle.deactivated === true" style="background-color: #f3f3f3;"><img src="assets/vehiculo_icon.png" class="icon-person" alt=""></td>
+              <td *ngIf="scooter.vehicle.deactivated === true" style="background-color: #f3f3f3;">{{scooter.vehicle.model}}</td>
+              <td *ngIf="scooter.vehicle.deactivated === true" style="width:40%;background-color: #f3f3f3;"> {{scooter.vehicle.licensePlate}}</td>
+              <td *ngIf="scooter.vehicle.deactivated === true" style="background-color: #f3f3f3;">
+                  <ngb-rating [max]="5" [(rate)]="puntuacion" >
+                    <ng-template let-fill="fill" let-index="index">
+                      <span class="star" [ngClass]="fillStars(index,scooter.rating)" (click)="puntuacion = index + 1">&#9733;</span>
+                    </ng-template>
+                    </ngb-rating>
+              </td>
+              <td *ngIf="scooter.vehicle.deactivated === true" style="background-color: #f3f3f3;"><img (click)="changeCRUD('Consultar',i, scooter.licensePlate)" style="display: none;" src="assets/view.png" class="icon-button" alt=""></td>
+              <td *ngIf="scooter.vehicle.deactivated === true" style="background-color: #f3f3f3;"><img (click)="changeCRUD('modificar',i, scooter.licensePlate)" style="display: none;" src="assets/edit.png" class="icon-button" alt=""></td>
+              <td *ngIf="scooter.vehicle.deactivated === true" style="background-color: #f3f3f3;"><img (click)="deleteVehicle(i, scooter.vehicle.licensePlate)" style="display: none;" src="assets/delete.png" class="icon-button" alt=""></td>
+              <td *ngIf="scooter.vehicle.deactivated === true" style="background-color: #f3f3f3;"><img (click)="activateVehicle(i, scooter.vehicle.licensePlate)" src="assets/reservar_vehiculo_boton.png" class="icon-reserva" alt=""></td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+<div>
+  <img (click)="changeMenu('gestion_vehiculo')"  src="assets/volver_boton.png" class="button-volver" alt=""/>
+  <img (click)="addPatinete('gestion_vehiculos_Anadirpatinete')"  src="assets/añadir_boton.png" class="button-add" alt=""[class.active]="action === 'añadir'"/>
+</div>
+</section>
+
+
+<!-- GESTION DE RESERVAS -->
+
+<!-- GESTION DE RESERVAS USUARIO -->
+<section *ngIf="menu === 'gestion_reservas_usuario'">
+<div class="line-container">
+  <div class="line-small"></div>
+  <div class="text-list">Usuarios con Reservas</div>
+  <div class="line"></div>
+</div>
+<div class="tabla-scroll">
+  <table class="lists">
+      <caption></caption>
+      <th></th>
+      <tbody>
+          <tr *ngFor="let user of  UsersBooking_list; let i=index" >
+              <td><img src="assets/person_logo.png" class="icon-person" alt=""></td>
+              <td>{{user.name}}</td>
+              <td> {{user.surname}}</td>
+              <td><img (click)="showBookings(i, user.name, user.email)" src="assets/view.png" class="icon-button" alt=""></td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+</section>
+
+<section *ngIf="menu === 'gestion_reservas_usuario_consultarUsuario'">
+<div class="line-container">
+  <div class="line-small"></div>
+  <div class="text-list">Historial Reservas {{bookingUserName}}</div>
+  <div class="line"></div>
+</div>
+<div class="tabla-scroll">
+  <table class="lists">
+      <caption></caption>
+      <th></th>
+      <tbody>
+          <tr *ngFor="let booking of  BookingsUsers_list; let i=index" >
+              <td><img src="assets/reserva_icon.png" class="icon-person" alt=""></td>
+              <td>{{booking.vehicle.model}}</td>
+              <td> {{booking.date}}</td>
+              <td>
+                  <ngb-rating [max]="5" [(rate)]="puntuacion" >
+                    <ng-template let-fill="fill" let-index="index">
+                      <span class="star" [ngClass]="fillStars(index,booking.rating)" (click)="puntuacion = index + 1">&#9733;</span>
+                    </ng-template>
+                    </ngb-rating>
+              </td>
+              <td> <img (click)="consultUserBookingForm('gestion_reservas_usuario_consultarUsuario_consultarReserva', i)" src="assets/view.png" class="icon-button" alt=""></td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+<div>
+  <img (click)="changeMenu('gestion_reservas_usuario')"  src="assets/volver_boton.png" class="button-volver" alt=""/>
+
+</div>
+</section>
+
+<!-- GESTION DE RESERVAS VEHICULO -->
+
+<section *ngIf="menu === 'gestion_reservas_vehiculo'">
+<div class="line-container">
+  <div class="line-small"></div>
+  <div class="text-list">Reservas por Vehículo</div>
+  <div class="line"></div>
+</div>
+<p class="p-class">Seleccione el tipo de vehículo que desee consultar sus valoraciones.</p>
+  <div class="sub-text-list">Tipo de Vehículo</div>
+
+  <div class="container">
+      <input class="filtro_input" type="radio" [(ngModel)]="filter" value="coche" name="size" id="coche">
+      <label class ="filtro_label" for="coche" >Coche</label>
+
+      <input class="filtro_input" type="radio" [(ngModel)]="filter" value="moto" name="size" id="moto">
+      <label class ="filtro_label" for="moto">Moto</label>
+
+      <input class="filtro_input" type="radio" [(ngModel)]="filter" value="patinete" name="size" id="patinete">
+      <label class ="filtro_label" for="patinete" >Patinete</label>
+  </div>
+
+  <div *ngIf="filter === 'coche'">
+    <div class=" tabla-scroll-vehicles">
+      <table class="lists">
+          <caption></caption>
+          <th></th>
+          <tbody>
+              <tr *ngFor="let car of cars_list; let i=index" >
+                  <td><img src="assets/vehiculo_icon.png" class="icon-person" alt=""></td>
+                  <td>{{car.vehicle.model}}</td>
+                  <td> {{car.vehicle.licensePlate}}</td>
+                  <td>
+                      <ngb-rating [max]="5" [(rate)]="puntuacion" >
+                        <ng-template let-fill="fill" let-index="index">
+                          <span class="star" [ngClass]="fillStars(index,car.rating)" (click)="puntuacion = index + 1">&#9733;</span>
+                        </ng-template>
+                        </ngb-rating>
+                  </td>
+                  <td><img (click)="showBookingsVehicle(i,car.vehicle.model, car.vehicle.licensePlate, 'car')" src="assets/view.png" class="icon-button" alt=""></td>
+              </tr>
+          </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="filter === 'moto'">
+    <div class="tabla-scroll-vehicles">
+      <table class="lists">
+          <caption></caption>
+          <th></th>
+          <tbody>
+              <tr *ngFor="let moto of motorcycle_list; let i=index" >
+                  <td><img src="assets/vehiculo_icon.png" class="icon-person" alt=""></td>
+                  <td>{{moto.vehicle.model}}</td>
+                  <td> {{moto.vehicle.licensePlate}}</td>
+                  <td>
+                      <ngb-rating [max]="5" [(rate)]="puntuacion" >
+                        <ng-template let-fill="fill" let-index="index">
+                          <span class="star" [ngClass]="fillStars(index,moto.rating)" (click)="puntuacion = index + 1">&#9733;</span>
+                        </ng-template>
+                        </ngb-rating>
+                  </td>
+                  <td><img (click)="showBookingsVehicle(i, moto.vehicle.model ,moto.vehicle.licensePlate, 'motorcycle')" src="assets/view.png" class="icon-button" alt=""></td>
+              </tr>
+          </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="filter === 'patinete'">
+    <div class="tabla-scroll-vehicles">
+      <table class="lists">
+          <caption></caption>
+          <th></th>
+          <tbody>
+              <tr *ngFor="let scooter of scooters_list; let i=index" >
+                  <td><img src="assets/vehiculo_icon.png" class="icon-person" alt=""></td>
+                  <td>{{scooter.vehicle.model}}</td>
+                  <td> {{scooter.vehicle.licensePlate}}</td>
+                  <td>
+                      <ngb-rating [max]="5" [(rate)]="puntuacion" >
+                        <ng-template let-fill="fill" let-index="index">
+                          <span class="star" [ngClass]="fillStars(index,scooter.rating)" (click)="puntuacion = index + 1">&#9733;</span>
+                        </ng-template>
+                        </ngb-rating>
+                  </td>
+                  <td><img (click)="showBookingsVehicle(i, scooter.vehicle.model, scooter.vehicle.licensePlate, 'scooter')" src="assets/view.png" class="icon-button" alt=""></td>
+              </tr>
+          </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section *ngIf="menu === 'gestion_reservas_vehiculo_valoraciones'">
+  <div class="line-container">
+    <div class="line-small"></div>
+    <div class="text-list">Valoraciones Usuarios {{valuationVehicleName}}</div>
+    <div class="line"></div>
+  </div>
+  <div class="tabla-scroll">
+    <table class="lists">
+        <caption></caption>
+        <th></th>
+        <tbody>
+            <tr *ngFor="let user of CarValuation_list; let i=index" >
+                <td *ngIf="user" style="width: 5%;"><img src="assets/reserva_icon.png" class="icon-person" alt=""></td>
+                <td *ngIf="!user" style="width: 5%;background-color: #f3f3f3"><img src="assets/reserva_icon.png" class="icon-person" alt=""></td>
+                <td *ngIf="user" style="width: 7.5%">{{user.name}}</td>
+                <td *ngIf="!user" style="background-color: #f3f3f3;width: 5%;">Usuario</td>
+                <td *ngIf="user" style="width: 70%"> {{user.surname}}</td>
+                <td *ngIf="!user" style="background-color: #f3f3f3;width: 70%">Apellidos</td>
+                <td *ngIf="user"> <img (click)="consultUserBooking(user.email,valuationVehicleName )" src="assets/comentario_icon.png" class="icon-reserva" alt=""></td>
+                <td *ngIf="!user" style="background-color: #f3f3f3;">  <img style="cursor: none;" src="assets/cancelar_carga_boton.png" class="icon-reserva" alt=""></td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
+  <div>
+    <img (click)="changeMenu('gestion_reservas_vehiculo')"  src="assets/volver_boton.png" class="button-add-center" alt=""/>
+
+  </div>
+</section>
+
+<!-- FACTURACION -->
+
+<section *ngIf="menu === 'facturacion'">
+<div class="line-container">
+  <div class="line-small"></div>
+  <div class="text-list">Selecciona Fecha de Facturación</div>
+  <div class="line"></div>
+</div>
+<div class= container-fecha>
+  <select class="input-fecha-mes" [(ngModel)]="selectedMonth" [ngModelOptions]="{ standalone: true }" required>
+    <option style="display: block;" value="" disabled selected hidden>Mes</option>
+    <option *ngFor="let month of months" [value]="month">{{ month }}</option>
+  </select>
+
+  <select class="input-fecha-año" [(ngModel)]="selectedYear" [ngModelOptions]="{ standalone: true }" required >
+    <option style="display: block;" value="" disabled selected hidden>Año</option>
+    <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+  </select>
+</div>
+<div class="sub-text-list-fac">/</div>
+<img *ngIf="showFilter" (click)="searchFacturationFilter()"  src="assets/buscar_filter.png" class="button-facturacion" alt=""/>
+<img *ngIf="!showFilter" (click)="quitFilter()"  src="assets/desactivar_filter.png" class="button-quitfilter" alt=""/>
+<div class="line-container-facturacion">
+  <div class="line-small"></div>
+  <div class="text-list">Facturación</div>
+  <div class="line"></div>
+</div>
+
+  <div class="sub-text-list-fact-tipo">Tipo de Vehículo</div>
+
+  <div class="container-facturacion">
+      <input class="filtro_input" type="radio" [(ngModel)]="filter" value="todos" name="size" id="todos">
+      <label class ="filtro_label" for="todos" >Todos Vehículos</label>
+
+      <input class="filtro_input" type="radio" [(ngModel)]="filter" value="coche" name="size" id="coche">
+      <label class ="filtro_label" for="coche" >Coche</label>
+
+      <input class="filtro_input" type="radio" [(ngModel)]="filter" value="moto" name="size" id="moto">
+      <label class ="filtro_label" for="moto">Moto</label>
+
+      <input class="filtro_input" type="radio" [(ngModel)]="filter" value="patinete" name="size" id="patinete">
+      <label class ="filtro_label" for="patinete" >Patinete</label>
+  </div>
+
+
+  <div *ngIf="filter === 'todos'">
+      <div class="tabla-scroll-facturacion">
+        <table class="lists">
+            <caption></caption>
+            <th>Nombre</th>
+            <th>Usuario</th>
+            <th>Tipo</th>
+            <th>Vehículo</th>
+            <th>Fecha</th>
+            <th>Precio</th>
+            <tbody>
+
+                <tr *ngFor="let bill of facturation_list; let i=index" >
+                    <td style="width: 5%;">Factura {{bill.id}}</td>
+                    <td *ngIf="bill.user" style="width: 5%;">{{bill.user.name}}</td>
+                    <td *ngIf="!bill.user" style="width: 5%;">Usuario</td>
+                    <td *ngIf="bill.vehicle.type  ==='car'" style="width: 5%;" >Coche</td>
+                    <td *ngIf="bill.vehicle.type  ==='motorcycle'" style="width: 5%;" >Moto</td>
+                    <td *ngIf="bill.vehicle.type  ==='scooter'" style="width: 5%;" >Patinete</td>
+                    <td *ngIf="bill.vehicle" style="width: 5%;"> {{bill.vehicle.model}}</td>
+                    <td *ngIf="!bill.vehicle" style="width: 5%;">Modelo</td>
+                    <td style="width: 5%;"> {{bill.date}}</td>
+                    <td style="width: 5%;"> {{bill.price}} €</td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+      <div class="tabla-scroll-facturacion-total">
+      <table class="lists">
+        <caption></caption>
+        <th></th>
+        <tbody>
+                <td style="width: 82%; font-weight: bold;">TOTAL FACTURADO</td>
+                <td style="font-weight: bold;">{{obtainTotalFacturation(this.facturation_list)}}€</td>
+
+        </tbody>
+    </table>
+  </div>
+</div>
+
+
+  <div *ngIf="filter === 'coche'">
+    <div class="tabla-scroll-facturacion">
+      <table class="lists">
+          <caption></caption>
+          <th>Nombre</th>
+          <th>Usuario</th>
+          <th>Tipo</th>
+          <th>Vehículo</th>
+          <th>Fecha</th>
+          <th>Precio</th>
+          <tbody>
+
+              <tr *ngFor="let bill of facturationCar_list; let i=index" >
+                  <td style="width: 5%;">Factura {{bill.id}}</td>
+                  <td *ngIf="bill.user" style="width: 5%;">{{bill.user.name}}</td>
+                  <td *ngIf="!bill.user" style="width: 5%;">Usuario</td>
+                  <td style="width: 5%;">Coche</td>
+                  <td *ngIf="bill.vehicle" style="width: 5%;"> {{bill.vehicle.model}}</td>
+                  <td *ngIf="!bill.vehicle" style="width: 5%;">Modelo</td>
+                  <td style="width: 5%;"> {{bill.date}}</td>
+                  <td style="width: 5%;"> {{bill.price}} €</td>
+              </tr>
+          </tbody>
+      </table>
+    </div>
+    <div class="tabla-scroll-facturacion-total">
+    <table class="lists">
+      <caption></caption>
+      <th></th>
+      <tbody>
+              <td style="width: 82%; font-weight: bold;">TOTAL FACTURADO</td>
+              <td style="font-weight: bold;">{{obtainTotalFacturation(this.facturationCar_list)}}€</td>
+
+      </tbody>
+  </table>
+</div>
+
+
+  </div>
+
+
+  <div *ngIf="filter === 'moto'">
+    <div class="tabla-scroll-facturacion">
+      <table class="lists">
+          <caption></caption>
+          <th>Nombre</th>
+          <th>Usuario</th>
+          <th>Tipo</th>
+          <th>Vehículo</th>
+          <th>Fecha</th>
+          <th>Precio</th>
+          <tbody>
+              <tr *ngFor="let bill of facturationMoto_list; let i=index" >
+                  <td style="width: 5%;">Factura {{bill.id}}</td>
+                  <td *ngIf="bill.user" style="width: 5%;">{{bill.user.name}}</td>
+                  <td *ngIf="!bill.user" style="width: 5%;">Usuario</td>
+                  <td style="width: 5%;">Moto</td>
+                  <td *ngIf="bill.vehicle" style="width: 5%;"> {{bill.vehicle.model}}</td>
+                  <td *ngIf="!bill.vehicle" style="width: 5%;">Modelo</td>
+                  <td style="width: 5%;"> {{bill.date}}</td>
+                  <td style="width: 5%;"> {{bill.price}} €</td>
+              </tr>
+          </tbody>
+      </table>
+    </div>
+    <div class="tabla-scroll-facturacion-total">
+    <table class="lists">
+      <caption></caption>
+      <th></th>
+      <tbody>
+              <td style="width: 82%; font-weight: bold;">TOTAL FACTURADO</td>
+              <td style="font-weight: bold;">{{obtainTotalFacturation(this.facturationMoto_list)}}€</td>
+      </tbody>
+  </table>
+    </div>
+  </div>
+
+  <div *ngIf="filter === 'patinete'">
+    <div class="tabla-scroll-facturacion">
+      <table class="lists">
+          <caption></caption>
+          <th>Nombre</th>
+          <th>Usuario</th>
+          <th>Tipo</th>
+          <th>Vehículo</th>
+          <th>Fecha</th>
+          <th>Precio</th>
+          <tbody>
+              <tr *ngFor="let bill of facturationScooter_list; let i=index" >
+                  <td style="width: 5%;">Factura {{bill.id}}</td>
+                  <td *ngIf="bill.user" style="width: 5%;">{{bill.user.name}}</td>
+                  <td *ngIf="!bill.user" style="width: 5%;">Usuario</td>
+                  <td style="width: 5%;">Patinete</td>
+                  <td *ngIf="bill.vehicle" style="width: 5%;"> {{bill.vehicle.model}}</td>
+                  <td *ngIf="!bill.vehicle" style="width: 5%;">Modelo</td>
+                  <td style="width: 5%;"> {{bill.date}}</td>
+                  <td style="width: 5%;"> {{bill.price}} €</td>
+              </tr>
+          </tbody>
+      </table>
+    </div>
+    <div class="tabla-scroll-facturacion-total">
+    <table class="lists">
+      <caption></caption>
+      <th></th>
+      <tbody>
+              <td style="width: 82%; font-weight: bold;">TOTAL FACTURADO</td>
+              <td style="font-weight: bold;">{{obtainTotalFacturation(this.facturationScooter_list)}}€</td>
+
+      </tbody>
+  </table>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+<!-- -------------------------------------------FORMULARIOS ADMINISTRADOR, USUARIOS Y PERSONAL MANTENIMIENTO----------------------- -->
+
+<div class="app-container"*ngIf="!showList" >
+<div class="horizontal-line" >
+<div class="short-divider"></div>
+<span class="line-text"> {{ action }}</span>
+<div class="long-divider"></div>
+</div>
+
+<div class="form-container"  *ngIf="!showList" >
+<div class="form-left">
+  <label for="name">Nombre</label>
+  <input class="input" type="text" id="name" name="name" [(ngModel)]="name" [disabled]="action === 'Consultar'">
+  <label for="surname">Apellidos</label>
+  <input class="input" type="text" id="surname" name="surname" [(ngModel)]="surname" [disabled]="action === 'Consultar'">
+  <label for="email">Correo Electrónico</label>
+  <input class="input" type="text" id="email" name="email" [(ngModel)]="email" [disabled]="action === 'Consultar' || (action === 'modificar' )">
+
+  <div *ngIf="currentRole === 'ROLE_USER'">
+    <label for="Fecha">Fecha</label>
+    <div class= container-fecha>
+
+    <select class="input-fecha" [(ngModel)]="selectedDay" [ngModelOptions]="{ standalone: true }" required [disabled]="action === 'Consultar'">
+      <option *ngFor="let day of days" [value]="day">{{ day }}</option>
+    </select>
+    <select class="input-fecha" [(ngModel)]="selectedMonth" [ngModelOptions]="{ standalone: true }" required [disabled]="action === 'Consultar'">
+      <option *ngFor="let month of months" [value]="month">{{ month }}</option>
+    </select>
+    <select class="input-fecha" [(ngModel)]="selectedYear" [ngModelOptions]="{ standalone: true }" required [disabled]="action === 'Consultar'">
+      <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+    </select>
+
+    </div>
+  </div>
+  <div *ngIf="currentRole === 'ROLE_MANTENANCE' ">
+    <label for="">Carnet de conducir</label>
+    <select class="input" [(ngModel)]="carnet" [ngModelOptions]="{standalone: true}" required [disabled]="action === 'Consultar'">
+      <option value="B">B</option>
+      <option value="A1">A1</option>
+      <option value="A2">A2</option>
+    </select>
+
+
+  </div>
+</div>
+
+<div class="form-separator"></div>
+<div class="form-center">
+  <label for="dni">DNI</label>
+  <input class="input" type="text" id="dni" name="dni" [(ngModel)]="dni" [disabled]="action === 'Consultar'">
+  <div *ngIf="currentRole === 'ROLE_USER'">
+  <label for="phone">Móvil</label>
+  <input class="input" type="text" id="phone" name="phone"  [(ngModel)]="numberPhone" [disabled]="action === 'Consultar'">
+  </div>
+  <div *ngIf="currentRole === 'ROLE_ADMIN' || currentRole === 'ROLE_MANTENANCE'">
+    <label for="city">Ciudad</label>
+    <input class="input" type="text" id="city" name="city" [(ngModel)]="city" [disabled]="action === 'Consultar'">
+    <div *ngIf="action === 'añadir'">
+      <label for="password">Contraseña</label>
+      <input class="input" type="password" id="password" name="password" [(ngModel)]="password">
+    </div>
+  </div>
+  <div *ngIf="currentRole === 'ROLE_MANTENANCE'">
+    <label for="experience">Experiencia</label>
+    <input class="input" type="text" id="experience" name="experience" [(ngModel)]="experience" [disabled]="action === 'Consultar'">
+  </div>
+  <div *ngIf="currentRole === 'ROLE_USER' ">
+    <label for="">Carnet de conducir</label>
+    <select class="input" [(ngModel)]="carnet" [ngModelOptions]="{standalone: true}" required [disabled]="action === 'Consultar'">
+      <option value="B">B</option>
+      <option value="A1">A1</option>
+      <option value="A2">A2</option>
+    </select>
+  </div>
+
+
+</div>
+
+<div class="form-right">
+  <img src="assets\iconoRol.png" alt="Imagen">
+</div>
+
+<div class="form-button absolute">
+  <button *ngIf="action !== 'Consultar'" class="button-saveFoto" (click)="handleSaveButtonClick()">
+    <img src="assets/guardar_boton.png" alt="Guardar">
+  </button>
+  <button class="button-backFoto" (click)="handleCancelButtonClick()"><img src="assets/volver_boton.png" alt="Volver"></button>
+</div>
+</div>
+
+</div>
+
+
+
+<!-- COCHES,MOTOS, PATINETES -->
+
+<!-- ---------------------PESTAÑA COCHES--------------------------------------------- -->
+
+
+<!-- --------------------CONSULTAR COCHES--------------------------------------------- -->
+<div class="app-container" *ngIf="menu ==='gestion_vehiculos_ConsultarCoche'">
+<div class="horizontal-line-reserva" >
+  <div class="short-divider"></div>
+  <span class="line-text"> CONSULTAR</span>
+  <div class="long-divider"></div>
+</div>
+<div class="form-container">
+
+    <div class="form-left">
+      <label for="modelo">Modelo</label>
+      <input class="input" type="text" id="modelo" name="modelo" [(ngModel)]="modelo" readOnly >
+
+      <label for="numPlazas">Número de Plazas</label>
+      <input class="input" type="text" id="numPlazas" name="numPlazas" [(ngModel)]="numPlazas" readOnly >
+
+      <label for="Ubicacion">Ubicación</label>
+      <input class="input" type="text" id="Ubicacion" name="Ubicacion" [(ngModel)]="ubicacion" readOnly >
+    </div>
+
+    <div class="form-separator"></div>
+
+    <div class="form-center">
+      <label for="matricula">Matrícula</label>
+      <input class="input" type="text" id="matricula" name="matricula" [(ngModel)]="matricula" readOnly >
+
+      <label for="estado">Estado</label>
+      <input class="input" type="text" id="estado" name="estado" [(ngModel)]="estado"readOnly >
+      <label for="porcentajeBateria">Porcentaje de Bateria</label>
+      <input class="input" type="text" id="porcentajeBateria" name="porcentajeBateria" [(ngModel)]="porcentajeBateria" readOnly >
+    </div>
+
+    <div class="form-right">
+      <img src="assets/iconoRueda.png" alt="Imagen">
+    </div>
+
+    <div class="form-button absolute">
+       <button class="button-backFoto" (click)="changeMenu('car')"><img src="assets/volver_boton.png" alt="Volver"></button>
+    </div>
+</div>
+</div>
+
+
+<!-- --------------------MODIFICAR COCHES--------------------------------------------- -->
+<div  class="app-container" *ngIf="menu ==='gestion_vehiculos_ModificarCoche'">
+<div class="horizontal-line-reserva" >
+  <div class="short-divider"></div>
+  <span class="line-text">MODIFICAR</span>
+  <div class="long-divider"></div>
+</div>
+<div class="form-container">
+
+    <div class="form-left">
+      <label for="modelo">Modelo</label>
+      <input class="input" type="text" id="modelo" name="modelo" [(ngModel)]="modelo" >
+
+      <label for="numPlazas">Número de Plazas</label>
+      <input class="input" type="text" id="numPlazas" name="numPlazas" [(ngModel)]="numPlazas" >
+
+      <label for="Ubicacion">Ubicación</label>
+      <input class="input" type="text" id="Ubicacion" name="Ubicacion" [(ngModel)]="ubicacion">
+    </div>
+
+    <div class="form-separator"></div>
+
+    <div class="form-center">
+      <label for="matricula">Matrícula</label>
+      <input class="input" type="text" id="matricula" name="matricula" [(ngModel)]="matricula" readonly>
+
+      <label for="estado">Estado</label>
+      <select class="input" id="estado" name="estado" [(ngModel)]="estado" disabled>
+        <option value="Disponible">Disponible</option>
+        <option value="Ocupado">Ocupado</option>
+        <option value="Reservado">Reservado</option>
+        <option value="Pendiente de Carga">Pendiente de Carga</option>
+        <option value="No Disponible">No Disponible</option>
+        <option value="Desactivado">Desactivado</option>
+      </select>
+      <label for="porcentajeBateria">Porcentaje de Bateria</label>
+      <input class="input" type="text" id="porcentajeBateria" name="porcentajeBateria"  [(ngModel)]="porcentajeBateria" readonly>
+    </div>
+
+    <div class="form-right">
+      <img src="assets/iconoRueda.png" alt="Imagen">
+    </div>
+
+    <div class="form-button absolute">
+      <button class="button-saveFoto" (click)="guardarCocheModificado()"><img src="assets/guardar_boton.png" alt="Volver"></button>
+       <button class="button-backFoto" (click)="changeMenu('car')"><img src="assets/volver_boton.png" alt="Volver"></button>
+    </div>
+</div>
+</div>
+
+<!-- --------------------AÑADIR COCHES--------------------------------------------- -->
+<div class="app-container" *ngIf="menu ==='gestion_vehiculos_AñadirCoche'">
+<div class="horizontal-line-reserva" >
+  <div class="short-divider"></div>
+  <span class="line-text">  AÑADIR  </span>
+  <div class="long-divider"></div>
+</div>
+<div class="form-container">
+
+    <div class="form-left">
+      <label for="modelo">Modelo</label>
+      <input class="input" type="text" id="modelo" name="modelo" [(ngModel)]="modelo" >
+
+      <label for="numPlazas">Número de Plazas</label>
+      <input class="input" type="text" id="numPlazas" name="numPlazas" [(ngModel)]="numPlazas">
+
+      <label for="Ubicacion">Ubicación</label>
+      <input class="input" type="text" id="Ubicacion" name="Ubicacion" [(ngModel)]="ubicacion" >
+    </div>
+
+    <div class="form-separator"></div>
+
+    <div class="form-center">
+      <label for="matricula">Matrícula</label>
+      <input class="input" type="text" id="matricula" name="matricula" [(ngModel)]="matricula" >
+
+      <label for="estado">Estado</label>
+      <select class="input" id="estado" name="estado" [(ngModel)]="estado" disabled>
+        <option value="Disponible">Disponible</option>
+        <option value="Ocupado">Ocupado</option>
+        <option value="Reservado">Reservado</option>
+        <option value="Pendiente de Carga">Pendiente de Carga</option>
+        <option value="No Disponible">No Disponible</option>
+      </select>
+      <label for="porcentajeBateria">Porcentaje de Bateria</label>
+      <input class="input" type="text" id="porcentajeBateria" name="porcentajeBateria" [(ngModel)]="porcentajeBateria">
+    </div>
+
+    <div class="form-right">
+      <img src="assets/iconoRueda.png" alt="Imagen">
+    </div>
+
+    <div class="form-button absolute">
+      <button class="button-saveFoto" (click)="guardarCocheAnadido()"><img src="assets/guardar_boton.png" alt="Volver"></button>
+       <button class="button-backFoto" (click)="changeMenu('car')"><img src="assets/volver_boton.png" alt="Volver"></button>
+
+    </div>
+</div>
+</div>
+<!-- ---------------------PESTAÑA CONSULTAR MOTOS--------------------------------------------- -->
+
+
+<div class="app-container" *ngIf="menu ==='gestion_vehiculos_ConsultarMoto'">
+<div class="horizontal-line-reserva">
+  <div class="short-divider"></div>
+  <span class="line-text"> CONSULTAR</span>
+  <div class="long-divider"></div>
+</div>
+<div class="form-container">
+    <div class="form-left">
+      <label for="modelo">Modelo</label>
+      <input class="input" type="text" id="modelo" name="modelo" [(ngModel)]="modelo" readonly>
+
+      <label for="tipo">Tipo</label>
+      <input class="input" type="text" id="tipo" name="tipo" [(ngModel)]="tipo" readonly>
+
+      <label for="Ubicacion">Ubicación</label>
+      <input class="input" type="text" id="Ubicacion" name="Ubicacion" [(ngModel)]="ubicacion" readonly>
+
+      <label for="casco">¿Incluye casco?</label>
+      <select class="input" id="casco" name="casco" [(ngModel)]="casco" disabled>
+        <option value="true">Si</option>
+        <option value="false">No</option>
+      </select>
+    </div>
+
+    <div class="form-separator"></div>
+
+    <div class="form-center">
+      <label for="matricula">Matrícula</label>
+      <input class="input" type="text" id="matricula" name="matricula" [(ngModel)]="matricula" readonly>
+
+      <label for="estado">Estado</label>
+      <input class="input" type="text" id="estado" name="estado" [(ngModel)]="estado" disabled>
+
+      <label for="porcentajeBateria">Porcentaje de Bateria</label>
+      <input class="input" type="text" id="porcentajeBateria" name="porcentajeBateria" [(ngModel)]="porcentajeBateria" readonly>
+
+
+    </div>
+
+    <div class="form-right">
+      <img src="assets/iconoRueda.png" alt="Imagen">
+    </div>
+
+    <div class="form-button absolute">
+       <button class="button-backFoto" (click)="changeMenu('motorcycle')"><img src="assets/volver_boton.png" alt="Volver"></button>
+    </div>
+</div>
+</div>
+<!-- -------------------PESTAÑA MODIFICAR MOTOS--------------------------------------------- -->
+
+
+<div class="app-container" *ngIf="menu ==='gestion_vehiculos_ModificarMoto'">
+<div class="horizontal-line-reserva">
+  <div class="short-divider"></div>
+  <span class="line-text"> MODIFICAR</span>
+  <div class="long-divider"></div>
+</div>
+<div class="form-container">
+    <div class="form-left">
+      <label for="modelo">Modelo</label>
+      <input class="input" type="text" id="modelo" name="modelo" [(ngModel)]="modelo" >
+
+      <label for="tipo">Tipo</label>
+      <input class="input" type="text" id="tipo" name="tipo" [(ngModel)]="tipo" readonly>
+
+      <label for="Ubicacion">Ubicación</label>
+      <input class="input" type="text" id="Ubicacion" name="Ubicacion" [(ngModel)]="ubicacion" >
+
+      <label for="casco">Casco</label>
+      <select class="input" id="casco" name="casco" [(ngModel)]="casco">
+        <option value="true">Si</option>
+        <option value="false">No</option>
+      </select>
+    </div>
+
+    <div class="form-separator"></div>
+
+    <div class="form-center">
+      <label for="matricula">Matrícula</label>
+      <input class="input" type="text" id="matricula" name="matricula" [(ngModel)]="matricula" readonly>
+
+      <label for="estado">Estado</label>
+      <select class="input" id="estado" name="estado" [(ngModel)]="estado" disabled>
+        <option value="Disponible">Disponible</option>
+        <option value="Ocupado">Ocupado</option>
+        <option value="Reservado">Reservado</option>
+        <option value="Pendiente de Carga">Pendiente de Carga</option>
+        <option value="No Disponible">No Disponible</option>
+      </select>
+
+      <label for="porcentajeBateria">Porcentaje de Bateria</label>
+      <input class="input" type="text" id="porcentajeBateria" name="porcentajeBateria" [(ngModel)]="porcentajeBateria" readonly>
+
+
+    </div>
+
+    <div class="form-right">
+      <img src="assets/iconoRueda.png" alt="Imagen">
+    </div>
+
+    <div class="form-button absolute">
+      <button class="button-saveFoto" (click)="guardarMotoModificada()"><img src="assets/guardar_boton.png" alt="Volver"></button>
+       <button class="button-backFoto" (click)="changeMenu('motorcycle')"><img src="assets/volver_boton.png" alt="Volver"></button>
+    </div>
+</div>
+</div>
+
+
+
+<!-- -------------------PESTAÑA AÑADIR MOTOS--------------------------------------------- -->
+
+
+<div class="app-container" *ngIf="menu ==='gestion_vehiculos_AnadirMoto'">
+  <div class="horizontal-line-reserva">
+    <div class="short-divider"></div>
+    <span class="line-text"> AÑADIR  </span>
+    <div class="long-divider"></div>
+  </div>
+  <div class="form-container">
+      <div class="form-left">
+        <label for="modelo">Modelo</label>
+        <input class="input" type="text" id="modelo" name="modelo" [(ngModel)]="modelo" >
+
+        <label for="tipo">Tipo</label>
+        <input class="input" type="text" id="tipo" name="tipo" [(ngModel)]="tipo" readonly>
+
+        <label for="Ubicacion">Ubicación</label>
+        <input class="input" type="text" id="Ubicacion" name="Ubicacion" [(ngModel)]="ubicacion" >
+
+        <label for="casco">Casco</label>
+        <select class="input" id="casco" name="casco" [(ngModel)]="casco">
+          <option value="true">Si</option>
+          <option value="false">No</option>
+        </select>
+      </div>
+
+      <div class="form-separator"></div>
+
+      <div class="form-center">
+        <label for="matricula">Matrícula</label>
+        <input class="input" type="text" id="matricula" name="matricula" [(ngModel)]="matricula">
+
+        <label for="estado">Estado</label>
+        <select class="input" id="estado" name="estado" [(ngModel)]="estado" disabled>
+          <option value="Disponible">Disponible</option>
+          <option value="Ocupado">Ocupado</option>
+          <option value="Reservado">Reservado</option>
+          <option value="Pendiente de Carga">Pendiente de Carga</option>
+          <option value="No Disponible">No Disponible</option>
+        </select>
+
+        <label for="porcentajeBateria">Porcentaje de Bateria</label>
+        <input class="input" type="text" id="porcentajeBateria" name="porcentajeBateria" [(ngModel)]="porcentajeBateria" readonly>
+
+
+      </div>
+
+      <div class="form-right">
+        <img src="assets/iconoRueda.png" alt="Imagen">
+      </div>
+
+      <div class="form-button absolute">
+        <button class="button-saveFoto" (click)="guardarMotoAnadida()"><img src="assets/guardar_boton.png" alt="Volver"></button>
+         <button class="button-backFoto" (click)="changeMenu('motorcycle')"><img src="assets/volver_boton.png" alt="Volver"></button>
+      </div>
+  </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ---------------------PESTAÑA  CONSULTAR PATIENETES--------------------------------------------- -->
+
+
+<div class="app-container" *ngIf="menu ==='gestion_vehiculos_Consultarpatinete'">
+<div class="horizontal-line-reserva">
+  <div class="short-divider"></div>
+  <span class="line-text"> CONSULTAR</span>
+  <div class="long-divider"></div>
+</div>
+<div class="form-container">
+    <div class="form-left">
+      <label for="modelo">Modelo</label>
+      <input class="input" type="text" id="modelo" name="modelo" [(ngModel)]="modelo" readonly>
+
+      <label for="tipo">Tipo</label>
+      <input class="input" type="text" id="tipo" name="tipo" [(ngModel)]="tipo" readonly>
+
+      <label for="Ubicacion">Ubicación</label>
+      <input class="input" type="text" id="Ubicacion" name="Ubicacion" [(ngModel)]="ubicacion" readonly>
+
+      <label for="color">Color</label>
+      <input class="input" type="text" id="color" name="color" [(ngModel)]="color" readonly>
+    </div>
+
+    <div class="form-separator"></div>
+
+    <div class="form-center">
+      <label for="matricula">Matrícula</label>
+      <input class="input" type="text" id="matricula" name="matricula" [(ngModel)]="matricula" readonly>
+
+      <label for="estado">Estado</label>
+      <select class="input" id="estado" name="estado" [(ngModel)]="estado" disabled>
+        <option value="Disponible">Disponible</option>
+        <option value="Ocupado">Ocupado</option>
+        <option value="Reservado">Reservado</option>
+        <option value="Pendiente de Carga">Pendiente de Carga</option>
+        <option value="No Disponible">No Disponible</option>
+      </select>
+
+      <label for="porcentajeBateria">Porcentaje de Bateria</label>
+      <input class="input" type="text" id="porcentajeBateria" name="porcentajeBateria" [(ngModel)]="porcentajeBateria" readonly>
+
+
+    </div>
+
+    <div class="form-right">
+      <img src="assets/iconoRueda.png" alt="Imagen">
+    </div>
+
+    <div class="form-button absolute">
+       <button class="button-backFoto" (click)="changeMenu('scooter')"><img src="assets/volver_boton.png" alt="Volver"></button>
+    </div>
+</div>
+
+</div>
+
+
+
+
+
+
+<!-- ---------------------PESTAÑA MODIFICAR PATIENETES--------------------------------------------- -->
+
+
+<div class="app-container" *ngIf="menu ==='gestion_vehiculos_Modificarpatinete'">
+  <div class="horizontal-line-reserva">
+    <div class="short-divider"></div>
+    <span class="line-text"> MODIFICAR</span>
+    <div class="long-divider"></div>
+  </div>
+  <div class="form-container">
+      <div class="form-left">
+        <label for="modelo">Modelo</label>
+        <input class="input" type="text" id="modelo" name="modelo" [(ngModel)]="modelo" >
+
+        <label for="tipo">Tipo</label>
+        <input class="input" type="text" id="tipo" name="tipo" [(ngModel)]="tipo" readonly>
+
+        <label for="Ubicacion">Ubicación</label>
+        <input class="input" type="text" id="Ubicacion" name="Ubicacion" [(ngModel)]="ubicacion">
+        <label for="color">Color</label>
+        <input class="input" type="text" id="color" name="color" [(ngModel)]="color" >
+      </div>
+
+      <div class="form-separator"></div>
+
+      <div class="form-center">
+        <label for="matricula">Matrícula</label>
+        <input class="input" type="text" id="matricula" name="matricula" [(ngModel)]="matricula" readonly >
+
+        <label for="estado">Estado</label>
+        <select class="input" id="estado" name="estado" [(ngModel)]="estado" disabled>
+          <option value="Disponible">Disponible</option>
+          <option value="Ocupado">Ocupado</option>
+          <option value="Reservado">Reservado</option>
+          <option value="Pendiente de Carga">Pendiente de Carga</option>
+          <option value="No Disponible">No Disponible</option>
+        </select>
+
+        <label for="porcentajeBateria">Porcentaje de Bateria</label>
+        <input class="input" type="text" id="porcentajeBateria" name="porcentajeBateria" [(ngModel)]="porcentajeBateria" readonly>
+
+
+      </div>
+
+      <div class="form-right">
+        <img src="assets/iconoRueda.png" alt="Imagen">
+      </div>
+
+      <div class="form-button absolute">
+        <button class="button-saveFoto" (click)="guardarPatineteModificado()"><img src="assets/guardar_boton.png" alt="Volver"></button>
+         <button class="button-backFoto" (click)="changeMenu('scooter')"><img src="assets/volver_boton.png" alt="Volver"></button>
+      </div>
+  </div>
+
+  </div>
+
+
+
+
+
+<!-- ---------------------PESTAÑA AÑADIR PATIENETES--------------------------------------------- -->
+
+
+<div class="app-container" *ngIf="menu ==='gestion_vehiculos_Anadirpatinete'">
+<div class="horizontal-line-reserva">
+  <div class="short-divider"></div>
+  <span class="line-text">  AÑADIR  </span>
+  <div class="long-divider"></div>
+</div>
+<div class="form-container">
+    <div class="form-left">
+      <label for="modelo">Modelo</label>
+      <input class="input" type="text" id="modelo" name="modelo" [(ngModel)]="modelo" >
+
+      <label for="tipo">Tipo</label>
+      <input class="input" type="text" id="tipo" name="tipo" [(ngModel)]="tipo" readonly>
+
+      <label for="Ubicacion">Ubicación</label>
+      <input class="input" type="text" id="Ubicacion" name="Ubicacion" [(ngModel)]="ubicacion" >
+
+      <label for="color">Color</label>
+      <input class="input" type="text" id="color" name="color" [(ngModel)]="color">
+    </div>
+
+    <div class="form-separator"></div>
+
+    <div class="form-center">
+      <label for="matricula">Matrícula</label>
+      <input class="input" type="text" id="matricula" name="matricula" [(ngModel)]="matricula" >
+      <label for="estado">Estado</label>
+      <select class="input" id="estado" name="estado" [(ngModel)]="estado" disabled>
+        <option value="Disponible">Disponible</option>
+        <option value="Ocupado">Ocupado</option>
+        <option value="Reservado">Reservado</option>
+        <option value="Pendiente de Carga">Pendiente de Carga</option>
+        <option value="No Disponible">No Disponible</option>
+      </select>
+
+      <label for="porcentajeBateria">Porcentaje de Bateria</label>
+      <input class="input" type="text" id="porcentajeBateria" name="porcentajeBateria" [(ngModel)]="porcentajeBateria" >
+
+
+    </div>
+
+    <div class="form-right">
+      <img src="assets/iconoRueda.png" alt="Imagen">
+    </div>
+
+    <div class="form-button absolute">
+      <button class="button-saveFoto" (click)="guardarPatineteAnadido()"><img src="assets/guardar_boton.png" alt="Volver"></button>
+       <button class="button-backFoto" (click)="changeMenu('scooter')"><img src="assets/volver_boton.png" alt="Volver"></button>
+    </div>
+</div>
+
+</div>
+
+
+
+<!-- ---------------------PESTAÑA RESERVAS--------------------------------------------- -->
+
+
+<div class="app-container" *ngIf="menu==='gestion_reservas_usuario_consultarUsuario_consultarReserva'">
+<div class="horizontal-line-reserva">
+  <div class="short-divider"></div>
+  <span class="line-text"> RESERVA</span>
+  <div class="long-divider"></div>
+</div>
+<div class="form-container">
+    <div class="form-left">
+      <label for="matricula">Matrícula</label>
+      <input class="input" type="text" id="matricula" name="matricula" [(ngModel)]="matricula" readonly>
+
+      <label for="modelo">Modelo</label>
+      <input class="input" type="text" id="modelo" name="modelo" [(ngModel)]="modelo" readonly>
+      <label for="comentario">Comentario</label>
+      <textarea class="input" id="comentario" name="comentario" [(ngModel)]="comentario" readonly>></textarea>
+
+    </div>
+
+
+    <div class="form-separator"></div>
+
+    <div class="form-center">
+
+      <label for="estado">Estado</label>
+      <input class="input" type="text" id="estado" name="estado" [(ngModel)]="estado" readonly>
+
+      <label for="fecha">Fecha</label>
+      <input class="input" type="text" id="fecha" name="fecha" [(ngModel)]="fecha" readonly>
+
+      <label for="">Valoración</label>
+      <br>
+      <ngb-rating [max]="5" [(rate)]="puntuacion" >
+        <ng-template let-fill="fill" let-index="index">
+          <span class="star" [ngClass]="obtenerClaseEstrella(index)" (click)="puntuacion = index + 1">&#9733;</span>
+        </ng-template>
+        </ngb-rating>
+
+
+    </div>
+
+    <div class="form-right">
+      <img src="assets/iconoRueda.png" alt="Imagen">
+    </div>
+
+    <div class="form-button absolute">
+       <button class="button-backFoto" (click)="changeMenu('gestion_reservas_usuario_consultarUsuario')"><img src="assets/volver_boton.png" alt="Volver"></button>
+    </div>
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+<!-- ---------------------CONFIGURACION--------------------------------------------- -->
+
+
+<div class="app-container" *ngIf="menu==='configuracion'">
+<div class="horizontal-line-configuracion">
+  <div class="short-divider-configuracion"></div>
+  <span class="line-text-configuracion"> CONFIGURACION</span>
+  <div class="long-divider-configuracion"></div>
+</div>
+<div class="form-container">
+    <div class="form-left">
+      <label for="maxRecargables">Máx.Vehiculos Recargables x Personal</label>
+      <input class="input" type="text" id="maxRecargables" name="maxRecargables" [(ngModel)]="maxVehiclesCharging" >
+
+      <label for="facturacion">Facturación x Viajes</label>
+      <input class="input" type="text" id="facturacion" name="facturacion" [(ngModel)]="facturationPerTrip" >
+
+
+    </div>
+
+
+    <div class="form-separator"></div>
+
+    <div class="form-center">
+
+      <label for="bateriaViaje">Batería x Viaje</label>
+      <input class="input" type="text" id="bateriaViaje" name="bateriaViaje" [(ngModel)]="batteryPerTrip">
+
+      <label for="BateriaMinimo">Porcentaje de Batería Mínimo</label>
+      <input class="input" type="text" id="%BateriaMinimo" name="%BateriaMinimo" [(ngModel)]="minBatteryPerTrip" >
+
+
+    </div>
+
+    <div class="form-right">
+      <img src="assets/zonaConfiguracion.png" alt="Imagen">
+    </div>
+
+    <div class="form-button absolute">
+      <button class="button-saveFoto" (click)="handleSaveConfiguracion()"><img src="assets/guardar_boton.png" alt="Volver"></button>
+      <button class="button-backFoto" ><img (click)="changeMenu('gestion_vehiculo')" src="assets/volver_boton.png" alt="Volver"></button>
+    </div>
+</div>
+
+
+</div>
+
+

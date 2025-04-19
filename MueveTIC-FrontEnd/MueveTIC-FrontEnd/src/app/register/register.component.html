@@ -1,0 +1,95 @@
+<div class="app-container" >
+    <div class="navbar">
+      <div class="left-content">
+        <img src="assets/logo.png" alt="">
+        <span>Mueve <span class="TIC">TIC</span></span>
+      </div>
+    </div>
+
+    <div class="form-box1" *ngIf="!registered">
+          <div class="form-value">
+              <form action="">
+                  <h1>Crea tu cuenta</h1>
+                  <div class="inputbox">
+                    <input type="text" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" required>
+                    <label for="">Nombre <span>*</span></label>
+                  </div>
+                  <div class="inputbox">
+                    <input type="text" [(ngModel)]="surname" [ngModelOptions]="{standalone: true}" required>
+                    <label for="">Apellidos <span>*</span></label>
+                  </div>
+                  <div class="inputbox">
+                    <input type="text" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" required>
+                    <label for="">Email <span>*</span></label>
+                  </div>
+                  <div class="inputbox">
+                    <input type="password" [(ngModel)]="password"  matTooltip="La contraseña debe contener al menos 8 caracteres, incluyendo mayúsculas, minúsculas y números y símbolos"
+                    [matTooltipPosition]="'right'" [ngModelOptions]="{standalone: true}" required>
+                    <label for="">Contraseña <span>*</span></label>
+                  </div>
+                  <div class="inputbox">
+                    <input type="password" [(ngModel)]="pwd2" [ngModelOptions]="{standalone: true}"  required (paste)="disablePaste($event)">
+                    <label for="">Repite Contraseña <span>*</span></label>
+                  </div>
+                  <div class="inputbox">
+                    <input type="text" [(ngModel)]="dni" [ngModelOptions]="{standalone: true}" required>
+                    <label for="">DNI <span>*</span></label>
+                  </div>
+                  <div class="inputbox">
+                    <input type="text" [(ngModel)]="numberPhone" [ngModelOptions]="{standalone: true}" required>
+                    <label for="">Móvil <span>*</span></label>
+                  </div>
+                  <div class="inputbox-calendar">
+                    <label for="birthdate" class="birthdate-label">Fecha de Nacimiento</label>
+                      <select [(ngModel)]="selectedDay" [ngModelOptions]="{ standalone: true }"   required >
+                        <option *ngFor="let day of days" [value]="day">{{ day }}</option>
+                      </select>
+                      <select [(ngModel)]="selectedMonth" [ngModelOptions]="{ standalone: true }" required>
+                        <option *ngFor="let month of months" [value]="month">{{ month }}</option>
+                      </select>
+                      <select [(ngModel)]="selectedYear" [ngModelOptions]="{ standalone: true }"matTooltip="La edad mínima para registrarse es de 16 años"[matTooltipPosition]="'right'" required >
+                        <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+                      </select>
+                  </div>
+
+
+                  <div class="inputbox">
+                    <select [(ngModel)]="carnet" [ngModelOptions]="{standalone: true}" required>
+                      <option value="B">B</option>
+                      <option value="A1">A1</option>
+                      <option value="A2">A2</option>
+                    </select>
+                    <label for="">Carnet de conducir</label>
+                  </div>
+
+                  <button class="birthdate-label"(click)="register()">Registrarse</button>
+              </form>
+          </div>
+    </div>
+    <div class="form-box2">
+      <h2>¿Ya tienes cuenta?<a routerLink="/login">  Inicie Sesión</a></h2>
+    </div>
+
+
+  <div class="container" *ngIf="registered">
+    <h2>Configuración Doble Factor de Autenticación</h2>
+    <div class="qr-code">
+      <img [src]="secretImageUri" alt="QR Code">
+    </div>
+    <div class="form-group">
+      <label class = validationCode>Introduzca el código de validación de 6 dígitos generado por la aplicación <span class="palabra-clave">Google Authenticator</span>. Puede descargarla desde Play Store o App Store</label>
+      <input
+        type="text"
+        id="validationCode"
+        name="validationCode"
+        required
+        [(ngModel)]="otpCode"
+      >
+    </div>
+    <button
+      type="button"
+      (click)="verifyTfa()"
+      [class.button-disabled]="otpCode.length < 6"
+    >Verificar Código</button>
+  </div>
+</div>

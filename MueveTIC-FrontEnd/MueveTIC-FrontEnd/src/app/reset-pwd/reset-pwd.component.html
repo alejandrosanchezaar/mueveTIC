@@ -1,0 +1,27 @@
+<div class="app-container">
+  <div class="navbar">
+    <div class="left-content">
+      <img src="assets/logo.png" alt="">
+      <span>Mueve <span class="TIC">TIC</span></span>
+    </div>
+  </div>
+
+  <div class="form-box1">
+    <div class="form-value">
+      <form action="">
+        <h1 class="h1">Create a strong password</h1>
+        <h2 class="h2">The password must be at least eight characters long and include a combination of numbers, letters, and special characters (!~&#64;%).</h2>
+        <div class="inputbox">
+          <input type="password" [(ngModel)]="newPassword" [ngModelOptions]="{standalone: true}" required (paste)="disablePaste($event)">
+          <label for="newPassword">New Password <span>*</span></label>
+        </div>
+        <div class="inputbox">
+          <input type="password" [(ngModel)]="newPassword2" [ngModelOptions]="{standalone: true}" required (paste)="disablePaste($event)">
+          <label for="newPassword2">Repeat New Password <span>*</span></label>
+        </div>
+        <button (click)="resetPwd()">Reset Password</button>
+      </form>
+    </div>
+  </div>
+
+</div>

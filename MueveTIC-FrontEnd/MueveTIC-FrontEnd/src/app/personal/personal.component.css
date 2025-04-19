@@ -1,0 +1,398 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500&display=swap');
+/*Barra de navegación*/
+.app-container {
+    background-color: #f0f0f0;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-family: 'IBM Plex Sans', sans-serif;
+    height: 100vh;
+    width: 100%;
+  }
+
+
+  /*NUEVA BARRA DE NAVEGACIÓN*/
+
+  nav{
+    display: flex;
+    width: 100%;
+    margin: auto;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'IBM Plex Sans', sans-serif;
+    background-color: white;
+    font-size: 25px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    border-width: 0 0 1px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+
+  }
+
+  .app_logo{
+    width: 50px;
+    margin-right: 12px;
+    margin-left: 10px;
+    left: 0;
+    margin-top: 20px;
+
+  }
+  .Mueve{
+    padding:30px;
+    padding-left: 5px;
+    font-weight: 700;
+    font-size: 30px;
+    cursor: default;
+    margin-top: -5px;
+
+
+  }
+  .TIC{
+    color: #79ed83;
+
+
+  }
+  .menu{
+    font-family: 'IBM Plex Sans', sans-serif;
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    padding-left: 150px;
+    margin-top: 20px;
+  }
+
+  .menu > li > a{
+    display: block;
+    padding:15px 30px;
+    color: black;
+    text-decoration: none;
+
+  }
+
+  .menu > li:hover a{
+    /*
+    text-decoration: underline;
+    transition: text-decoration 0.3s ease-in-out;
+    padding-top: 5px;
+    text-decoration-thickness:3px ;
+    text-decoration-color: #79ed83; /* Cambia el color del subrayado a verde o el que desees */
+    background-color: #79ed83;
+    transition: background-color 0.3s ease-in-out;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer; /* Agregamos un cursor de mano para indicar que es un enlace */
+  }
+  .active{
+
+    background-color: #79ed83;
+    transition: background-color 0.3s ease-in-out;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    margin-right: 3px;
+    margin-left: 3px;
+    cursor: pointer; /* Agregamos un cursor de mano para indicar que es un enlace */
+
+  }
+
+  .desplegable{
+    position: absolute;
+    display: none;
+    width: 220px;
+    height: 130px;
+    background-color: white;
+    font-size: 22px;
+    box-shadow: 0 0 1.55px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 0px 0px;
+  }
+
+  .menu li:hover .desplegable{
+    display: block;
+  }
+
+  .desplegable li:hover a{
+    background-color:#79ed83;
+    list-style-type: none;
+    font-weight: 700;
+    border-width: 0 0 1px 0;
+    color: white;
+    border-radius: 2px;
+
+
+
+  }
+
+  .desplegable li a{
+    display: block;
+    color: black;
+    padding: 15px 15px 15px 20px;
+    text-decoration: none;
+    align-items: left;
+  }
+
+  .icon-perfil{
+    width: 50px;
+    cursor: pointer;
+    position: fixed;
+    right: 15px;
+    z-index: 999;
+    margin-top: 25px;
+  }
+
+  .desplegable-perfil{
+    position: absolute;
+    z-index: 999;
+    display: none;
+    width: 140px;
+    height: 38px;
+    background-color: white;
+    font-size: 22px;
+    box-shadow: 0 0 1.55px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 0px 0px;
+    right: 5px;
+    top: 53px;
+
+
+  }
+  .perfil:hover .desplegable-perfil{
+    display: inline-block;
+    cursor: pointer;
+
+
+  }
+  .desplegable-perfil li:hover a{
+    background-color:#79ed83;
+    list-style-type: none;
+    font-weight: 700;
+    border-width: 0 0 1px 0;
+    color: black;
+    border-radius: 2px;
+
+  }
+  .desplegable-perfil li a{
+    display: block;
+    color: black;
+    padding: 2.5px 2.5px 2.5px 3.5px;
+    text-decoration: none;
+    align-items: left;
+  }
+  .icon-menu{
+    vertical-align: middle;
+    margin-right: 4px;
+    margin-top: 7.25px;
+    margin-bottom: 7.25px;
+    width: 18px;
+    height: 18px;
+    left: 0;
+  }
+  ul li{
+    margin-top: 2px;
+    display: block;
+    justify-content: center;
+    font-size: 0.6em;
+    margin-bottom: -5px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 500;
+
+  }
+
+
+
+  /*Botones Filtro*/
+  .container{
+    position:absolute;
+    justify-self: start;
+    margin: 235px 20px 0px 40px;
+
+    }
+
+    .filtro_input[type="radio"]{
+    display: none;
+    }
+
+    .filtro_label{
+    position: relative;
+    color: #79ed83;
+    font-size: 15px;
+    border: 2px solid #79ed83;
+    padding: 10px 30px;
+    border-radius: 5px;
+    align-items: center;
+    cursor: pointer;
+    display: inline-flex;
+    margin-right: 10px;
+    }
+
+    .filtro_label::before{
+
+    content: "";
+    height: 16px;
+    width: 16px;
+    border: 2px solid #79ed83;
+    border-radius: 50%;
+    margin-right: 20px;
+    }
+
+    .filtro_input[type="radio"]:checked + .filtro_label{
+    background-color: #79ed83;
+    color: white;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in;
+
+    }
+
+    .filtro_input[type="radio"]:checked + .filtro_label::before{
+    height: 11px;
+    width: 11px;
+    border: 5px solid white;
+    background-color: #79ed83;
+
+
+    }
+
+
+  section{
+  font-family: 'IBM Plex Sans', sans-serif;
+  background-color:#f3f3f3 ;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+
+  }
+
+  .tabla-scroll{
+  position: absolute;
+  overflow-y: auto;
+  max-height: 450px;
+  width: 90%;
+  margin: 290px 5px 0px 38px;
+
+  }
+  .tabla-scroll_reservas{
+  position: absolute;
+  overflow-y: auto;
+  max-height: 450px;
+  width: 90%;
+  margin: 185px 5px 0px 35px;
+
+  }
+  .lists{
+
+  width: 100%;
+  border-collapse: collapse;
+  border: none;
+  border-color: #f3f3f3;
+  border-radius: 10px;
+
+  }
+
+
+
+  /* Estilo para las celdas de datos (tbody) */
+  td {
+  padding: 8px;
+  text-align: left;
+  background-color: white;
+  border: none;
+  }
+
+  /* Estilo para las filas impares */
+  tr {
+  border:15px solid #f3f3f3;
+
+
+  }
+  tr td:nth-child(4),
+  tr td:nth-child(5),
+  tr td:nth-child(6) {
+  text-align: left;
+  width: 120px;
+  }
+  tr td:nth-child(1){
+  width: 60px;
+  }
+  tr td:nth-child(2){
+  width: 100px;
+
+  }
+
+  .icon-person{
+  width: 45px;
+  height: 45px;
+  margin-right: 12px;
+  margin-top: -1%;
+
+
+  }
+
+  .icon-reserva{
+    width: 45px;
+    height: 45px;
+    margin-right: 12px;
+    margin-top: -1%;
+    cursor: pointer;
+    }
+
+
+    .line-container {
+        display: flex;
+      align-items: center;
+      width: 88%;
+      font-weight: 800;
+      position: absolute;
+      margin-right: 50px;
+      margin-left: 50px;
+      margin-top: 125px
+
+
+      }
+
+
+  .line {
+  flex-grow: 1;
+  border-top: 4px solid #79ed83;
+  }
+  .line-small{
+  flex-grow: 0.10;
+  border-top: 4px solid #79ed83;
+  }
+
+  .text-list {
+  margin: 0 20px;
+  font-size: 1.25em;
+  }
+  .sub-text-list {
+    position: absolute;
+    font-size: 1em;
+    font-weight: 800;
+    justify-self: start;
+    margin: 195px 20px 0px 50px;
+
+    }
+
+    .p-class{
+    justify-self: start;
+    margin: 160px 5px 0px 50px;
+    font-weight: 100;
+    position: absolute;
+    }
+    .perfil-userName{
+      width: 50px;
+      position: fixed;
+      right: 155px;
+      z-index: 999;
+      margin-top: 38px;
+      font-size: 14px;
+      margin-right: 5px;
+      font-weight: 500;
+
+
+    }

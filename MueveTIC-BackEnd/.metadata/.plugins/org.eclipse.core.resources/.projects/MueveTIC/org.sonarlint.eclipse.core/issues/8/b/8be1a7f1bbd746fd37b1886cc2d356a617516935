@@ -1,0 +1,9 @@
+
+Š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(°ÁçúÿÿÿÿH¡RMINORZ
+CODE_SMELL
+[
+java:S1066{"/Merge this if statement with the enclosing one.(Ø®¯•HœRMAJORZ
+CODE_SMELL
+‰
+java:S3749*"ZAnnotate this member with "@Autowired", "@Resource", "@Inject", or "@Value", or remove it.(¾…‚®H¢RCRITICALZ
+CODE_SMELL

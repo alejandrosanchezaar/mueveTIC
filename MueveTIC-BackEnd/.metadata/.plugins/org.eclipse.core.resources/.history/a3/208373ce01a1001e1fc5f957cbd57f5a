@@ -1,0 +1,92 @@
+package com.MueveTic.app;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.json.JSONObject;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.RequestBuilder;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+@SpringBootTest
+@ExtendWith(SpringExtension.class)
+@AutoConfigureMockMvc
+@TestMethodOrder(OrderAnnotation.class)
+public class TestBooking {
+	
+	@Autowired
+	private MockMvc server;
+	
+	@Test @Order(1)
+	void testBookingCar() throws Exception{
+		
+		ResultActions OkeyData = this.sendCreateBooking("1234SAD","Alejandro.Sanchez@alu.uclm.es");
+		OkeyData.andExpect(status().isOk());
+	}
+	
+	@Test @Order(2)
+	void testUserWithBookingPreviouslyCreated() throws Exception{
+		
+		ResultActions WrongData = this.sendCreateBooking("1234SAD","Alejandro.Sanchez@alu.uclm.es");
+		WrongData.andExpect(status().isConflict());
+	}
+	
+	@Test @Order(3)
+	void testWrongCarnet() throws Exception{
+		ResultActions WrongData = this.sendCreateBooking("1234SAD", "Yolanda.Ayuso@alu.uclm.es");
+		WrongData.andExpect(status().isConflict());
+	}
+	
+	@Test @Order(4)
+	void testBookingScooter() throws Exception{
+		ResultActions OkeyData = this.sendCreateBooking("1234SAD", "Yolanda.Ayuso@alu.uclm.es");
+		OkeyData.andExpect(status().isOk());
+	}
+	
+	@Test @Order(5)
+	void testVehicleUnavailable() throws Exception{
+		ResultActions WrongData = this.sendCreateBooking("1234SAD", "Yolanda.Ayuso@alu.uclm.es");
+		WrongData.andExpect(status().isConflict());
+	}
+	
+	@Test @Order(6)
+	void cleanDatabase() throws Exception {
+		ResultActions OkeyData = this.sendCancelBooking("Alejandro.Sanchez@alu.uclm.es");
+		OkeyData.andExpect(status().isOk());
+		ResultActions OkeyData2 = this.sendCancelBooking("Yolanda.Ayuso@alu.uclm.es");
+		OkeyData2.andExpect(status().isOk());
+	}
+	
+	
+	private ResultActions sendCancelBooking(String email) throws Exception {
+		RequestBuilder requestactivate = MockMvcRequestBuilders
+				.get("/bookings/cancelUserBooking?email="+email)
+				.contentType("application/json");
+		return this.server.perform(requestactivate);
+	}
+	
+	
+	private ResultActions sendCreateBooking(String licensePlate, String email) throws Exception {
+		JSONObject jsoBooking = new JSONObject()
+				.put("licensePlate",licensePlate)
+				.put("email",email);
+		
+		RequestBuilder request = MockMvcRequestBuilders
+				.post("/bookings/createBooking")
+				.contentType("application/json")
+				.content(jsoBooking.toString());
+		return this.server.perform(request);
+	}
+	
+	
+}

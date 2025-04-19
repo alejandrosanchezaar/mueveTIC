@@ -1,0 +1,24 @@
+
+w	java:S112Å"FDefine and throw a dedicated exception instead of using a generic one.(ÒÑÒÔşÿÿÿÿHÁRMAJORZ
+CODE_SMELL
+w	java:S112ß"FDefine and throw a dedicated exception instead of using a generic one.(ÒÑÒÔşÿÿÿÿHÂRMAJORZ
+CODE_SMELL
+w	java:S112ù"FDefine and throw a dedicated exception instead of using a generic one.(ÒÑÒÔşÿÿÿÿHÃRMAJORZ
+CODE_SMELL
+‹
+java:S1192Y"WDefine a constant instead of duplicating this literal "Vehicle doesn't exists" 3 times.(ÿøïïşÿÿÿÿHÄRCRITICALZ
+CODE_SMELL
+†
+java:S1192Å"QDefine a constant instead of duplicating this literal "Something failed" 3 times.(ÒÑÒÔşÿÿÿÿHÈRCRITICALZ
+CODE_SMELL
+
+java:S1192<"[Define a constant instead of duplicating this literal "Vehicle already registered" 3 times.(´ çëşÿÿÿÿHÌRCRITICALZ
+CODE_SMELL
+Š	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(°ÁçúÿÿÿÿHĞRMINORZ
+CODE_SMELL
+m
+java:S6201š"@Replace this instanceof check and cast with 'instanceof Car car'(¬“„ HÑRMINORZ
+CODE_SMELL
+€
+java:S6201œ"NReplace this instanceof check and cast with 'instanceof Motorcycle motorcycle'(˜§ö›úÿÿÿÿHÓRMINORZ
+CODE_SMELL

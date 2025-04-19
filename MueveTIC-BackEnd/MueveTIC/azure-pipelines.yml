@@ -1,0 +1,47 @@
+trigger:
+- develop-AlexM
+
+pool: 
+  name: Default
+  demands:
+  - agent.name -equals CALSOFT2324
+
+stages:
+- stage: Preparation
+  jobs:
+  - job: PreparationJob
+    steps:
+    - script: echo Preparation!
+
+- stage: Build
+  jobs:
+  - job: BuildJob
+    steps:
+    - script:
+        echo 'Running Maven Version'
+        mvn -version
+
+    - task: Maven@3
+      inputs:
+        mavenPomFile: 'MueveTIC/pom.xml'
+        mavenOptions: '-Xmx3072m'
+        javaHomeOption: 'JDKVersion'
+        jdkVersionOption: '1.17'
+        jdkArchitectureOption: 'x64'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        goals: 'package'
+
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '**/TEST-*.xml'
+        searchFolder: '/MueveTIC/src/test/java/com/MueveTic/app/'
+
+- stage: Sonarqube
+  jobs:
+  - job: SonarqubeJob
+    steps:
+    - checkout: none
+    - script: sonar-scanner -D sonar.token=$(SQ_TOKEN)
+    - script: echo Sonarqube ok!

@@ -1,0 +1,279 @@
+/*Barra de navegación*/
+.app-container {
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: auto;
+    font-family: 'IBM Plex Sans', sans-serif;
+
+  }
+
+  /*Barra de navegación*/
+  .navbar {
+    background-color: #ffffff;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    height: 56px;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 26px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    border-width: 0 0 1px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  }
+
+  .left-content {
+    display: flex;
+    align-items: center;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 700;
+  }
+
+  .left-content i {
+    font-size: 20px;
+    margin-right: 10px;
+  }
+
+  .left-content img {
+    width: 45px;
+    height: auto;
+    margin-right: 12px;
+    margin-left: 10px;
+  }
+
+  .TIC{
+    color: #79ed83;
+}
+
+  /* Formulario registro */
+
+  .form-box1 {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    height: auto;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 80px;
+  }
+
+  .inputbox {
+    position: relative;
+    margin: 30px 0;
+    width: 310px;
+    border-bottom: 2px solid #79ed83;
+  }
+
+  /* Estilo personalizado para el elemento select en .inputbox */
+  .inputbox select {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    padding: 0 5px;
+    color: #000000;
+    font-family: 'IBM Plex Sans', sans-serif;
+  }
+
+  .inputbox select:focus {
+    border-bottom: 2px solid #79ed83;
+  }
+
+
+
+  /* Estilo para etiquetas de inputs y selects */
+  .inputbox label{
+      position: absolute;
+      top: 50%;
+      left: 5px;
+      transform: translateY(-10%);
+      font-size: 1em;
+      pointer-events: none;
+      transition: 0.5s;
+      font-family: 'IBM Plex Sans', sans-serif;
+      color: #000000;
+  }
+
+  input:focus ~ label,
+  input:valid ~ label,
+  select:focus ~ label,
+  select:valid ~ label{
+      top: -5px;
+      color: #000000;
+  }
+
+
+  .inputbox input {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    padding: 0 35px 0 5px;
+    color: #000000;
+    font-family: 'IBM Plex Sans', sans-serif;
+  }
+
+  button {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    background-color: #79ed83;
+    color: black;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    height: 40px;
+  }
+
+  /* Estilo para log in si tienes cuenta */
+  .form-box2 {
+    margin-top: 1.5%;
+    margin-bottom: 5%;
+    width: 430px;
+    height: auto;
+    background: white;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 5px solid white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  h2{
+    font-size: 1em;
+    color: black;
+  }
+  a{
+    text-decoration: none;
+   }
+
+
+.inputbox-calendar {
+  position: relative;
+  margin: 30px 0;
+  width: 310px;
+}
+
+
+.inputbox-calendar select {
+  width: calc(33.33% - 5px);
+  display: inline-block;
+  margin-right: 5px;
+  height: 50px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 1em;
+  padding: 0 5px;
+  color: #000000;
+  font-family: 'IBM Plex Sans', sans-serif;
+  margin-top : 30px;
+  border-bottom: 2px solid #79ed83;
+}
+.inputbox-calendar label {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-150%);
+  font-size: 1em;
+  pointer-events: none;
+  transition: 0.5s;
+  font-family: 'IBM Plex Sans', sans-serif;
+  color: #000000;
+}
+
+.inputbox-calendar select:focus ~ label,
+.inputbox-calendar select:valid ~ label {
+  top: -90px;
+  font-size: 0.8em;
+  color: #000000;
+}
+h1 {
+  text-align: center;
+}
+
+.container {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 500px;
+  margin-bottom: 50px;
+}
+
+form {
+  text-align: center;
+}
+.form-group {
+  margin-bottom: 15px;
+  display: block;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  display: block;
+  margin: 0 auto;
+  border-radius: 5%;
+}
+
+
+.qr-code {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.qr-code img {
+  max-width: 100%;
+  border: solid 1px;
+}
+
+.success-message-panel {
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+  padding: 15px;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.success-icon {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.success-message {
+  font-size: 18px;
+  font-weight: bold;
+}
+.palabra-clave{
+  color: #79ed83
+}
+.validationCode{
+  color: #3b3838;
+  text-align: justify;
+  margin-bottom:10px;
+}
